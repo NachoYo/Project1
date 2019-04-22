@@ -2,5 +2,5 @@
 
 void main(int argc, char *argv[])
 {
-	printf("Argc %d Argv length %d",argc,sizeof(argv));
+	printf("Argc %i Argv length %i",argc,sizeof(argv));
 }
