@@ -12,6 +12,9 @@
 #include <stdlib.h>
 #include <poll.h>
 #include <arpa/inet.h>
+#include <pthread.h>
+#include <netdb.h>
+
 #define MAX 5
 
 #define MAXBUF 256
