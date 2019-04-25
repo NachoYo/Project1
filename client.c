@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 		printf("usage: cli srv_ip_addr port\n");
 		return 0;
 	}
-	port_num = atoi(argv[2]);
+	port_num = atoi("15123");
 
 	// socket creation
 	fd_sock = socket(AF_INET, SOCK_STREAM, 0);
