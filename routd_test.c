@@ -82,14 +82,14 @@ void Send(int tab[MAX][MAX])
 
 	for(int i=0;i<n;i++)
   		{
-			for (int j=1;j<n)
+			for (int j=1;j<n;j++)
 			{  			
 				if(tab[i][j]!=0)
 				{
 					int cli_fork=fork();
-					char [] msg;
+					char msg[];
 					char adress;
-					strcpy(adress,adss[j]);
+					strcpy(adress,adds[j]);
 					sprintf(msg, "%d %d %d", i,j,tab[i][j]);
 					if(cli_fork == 0)
 		  			{
