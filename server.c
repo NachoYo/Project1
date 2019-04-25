@@ -16,7 +16,7 @@ int thds;
 
 int pid;
 static void * handle(void *);
-int main(int argc, char *argv[])
+int main()
 {
 	int srv_sock, cli_sock;
 	int port_num, ret;
@@ -24,11 +24,7 @@ int main(int argc, char *argv[])
 	int len;
 
 	// arg parsing
-	if (argc != 2) {
-		printf("usage: srv port\n");
-		return 0;
-	}
-	port_num = atoi("15123");
+	port_num = 15123;
 
 	// socket creation
 	srv_sock = socket(AF_INET, SOCK_STREAM, 0);
