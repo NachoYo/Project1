@@ -11,6 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <poll.h>
+#include <arpa/inet.h>
 #define MAX 5
 
 #define MAXBUF 256
