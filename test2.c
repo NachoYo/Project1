@@ -89,9 +89,10 @@ int main()
 		{
 			return 0;
 		}
-		printf("\nWrite the message you want to send");
-		getline(&message,&getline_len,stdin);
 		
+		printf("\nWrite the message you want to send: ");
+		getline(&message,&getline_len,stdin);
+		printf("Lo que mandaste %s\n", message);
 		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[atoi(input)-1]);
 		cli_thds++;
 	}
@@ -148,7 +149,7 @@ static void * handle(void * arg)
 	/* read from client host:port */
 
 	int len = 0;
-	printf("A computer has beed connected");
+	printf("A computer has beed connected\n");
 	memset(recv_buffer, 0, sizeof(recv_buffer));
 	len = recv(cli_sockfd, recv_buffer, sizeof(recv_buffer), 0);
 	printf("%s\n len:%d\n", recv_buffer, len);
