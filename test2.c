@@ -10,6 +10,10 @@
 #include <pthread.h>
 #include <netdb.h>
 
+int table[MAX][MAX]={{0,1,3,1,1},
+ {0,0,0,0,0},
+ {0,0,0,0,0},
+ {0,0,0,0,0}};
 
 char buffer[1024];
 char *input;
@@ -26,15 +30,16 @@ static void * handle(void *);
 char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
 
 int srv_sock, cli_sock;
-	int port_num, ret;
-	struct sockaddr_in addr;
-	int len;
-	size_t getline_len;
+int port_num, ret;
+struct sockaddr_in addr;
+int len;
+size_t getline_len;
 
 //functions
 void * srv_listen(void *arg);
 static void * handle(void * arg);
 int * client(void * arg);
+void Send(int int table[5][5]);
 
 int main()
 {
