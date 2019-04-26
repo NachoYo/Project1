@@ -63,9 +63,7 @@ int main()
 	while(1){
 		input = NULL;
 		printf("Type the number of the computer you want to connect");
-
 		getline(&input,&getline_len,stdin);
-
 		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[atoi(input)-1]);
 		cli_thds++;
 	}
@@ -123,11 +121,10 @@ static void * handle(void * arg)
 
 	while (1) {
 	int len = 0;
-
-	printf("from client ----\n");
+	printf("Connected to the desired computer");
 	memset(recv_buffer, 0, sizeof(recv_buffer));
 	len = recv(cli_sockfd, recv_buffer, sizeof(recv_buffer), 0);
-	if (len == 0) continue;
+	if (len == 0) break;
 	printf("%s\n len:%d\n", recv_buffer, len);
 	memset(send_buffer, 0, sizeof(send_buffer));
 	sprintf(send_buffer, "[%s:%s]%s len:%d\n", 
@@ -173,7 +170,10 @@ int * client(void * arg)
 	}
 
 	while (1) {
-		send(fd_sock, "Comp1Con", 8, 0);
+		printf("Succesfully connected\n Write the message you want to send");
+		getline(&input,&getline_len,stdin);
+		len = strlen(input);
+		send(fd_sock, input, len, 0);
 		break;
 		/*
 		buffer = NULL;
