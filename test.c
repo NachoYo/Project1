@@ -171,6 +171,7 @@ int * client(void * arg)
 
 	while (1) {
 		send(fd_sock, "Comp1Con", 10, 0);
+		send(fd_sock, "Huevoxxd", 10, 0);
 		break;
 		/*
 		buffer = NULL;
