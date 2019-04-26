@@ -43,7 +43,7 @@ int * client(void * arg);
 void Send(int table[5][5]);
 
 //information about costs
-char costs[]="#4 15470";
+char costs[]="#4 37910";
 
 int main()
 {
@@ -81,6 +81,7 @@ int main()
 			pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[i]);
 			}
 			begin=false;
+			start=true;
 		}
 		if(start)
 		{
