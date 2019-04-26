@@ -9,6 +9,7 @@
 #include <arpa/inet.h>
 #include <pthread.h>
 #include <netdb.h>
+#include <stdbool.h>
 
 int table[5][5]={{0,1,3,1,1},
  {0,0,0,0,0},
