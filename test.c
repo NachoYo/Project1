@@ -27,7 +27,7 @@ int srv_sock, cli_sock;
 	int len;
 
 //functions
-void listen(void *arg);
+void srv_listen(void *arg);
 static void * handle(void * arg);
 int client(void * arg);
 
@@ -57,19 +57,19 @@ int main()
 		close(srv_sock);
 		return 0;
 	}
-	pthread_create(&servThread, NULL, listen, NULL);
+	pthread_create(&servThread, NULL, srv_listen, NULL);
 
 	while(1){
 		printf("Type the number of the computer you want to connect");
 		getline(&input,1,stdin);
 		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[atoi(input)-1]);
-		cli_tids++;
+		cli_thds++;
 	}
 
 	return 0;
 }
 
-void listen(void *arg)
+void srv_listen(void *arg)
 {
 	for (;;) {
 	// Listen part
