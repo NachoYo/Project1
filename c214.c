@@ -14,7 +14,8 @@ int table[5][5]={{0,1,3,1,1},
  {0,0,0,0,0},
  {0,0,0,0,0},
  {0,0,0,0,0}};
-
+bool start =false;
+bool begin =false;
 char buffer[1024];
 char *input;
 char r_buffer[1024];
@@ -42,7 +43,7 @@ int * client(void * arg);
 void Send(int table[5][5]);
 
 //information about costs
-char costs[]="#0 09214";
+char costs[]="#1 12205";
 
 int main()
 {
@@ -71,15 +72,21 @@ int main()
 	}
 	pthread_create(&servThread, NULL, srv_listen, NULL);
 
-	printf("Press enter if all the computers are online");
-	getline(&input,&getline_len,stdin);
-	for(int i=1;i<5;i++)
-	{
-		strcpy(message, costs);
-		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[i]);
-	}
-	
 	while(1){
+		if(begin)
+		{
+			for(int i=0;i<5;i++)
+			{
+				if(i!=3)
+				{
+				strcpy(message, costs);
+				pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[i]);
+				}
+			}
+			begin=false;
+		}
+		if(start)
+		{
 		input = NULL;
 		printf("Type the number of the computer you want to connect");
 		printf("\n(press 6 to exit)");
@@ -92,7 +99,8 @@ int main()
 		getline(&message,&getline_len,stdin);
 		
 		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[atoi(input)-1]);
-		cli_thds++;
+		cli_thds++;	
+		}
 	}
 
 	return 0;
@@ -164,6 +172,8 @@ static void * handle(void * arg)
 		{
 		table[atoi(recv_buffer[1])][i]=atoi(recv_buffer[i+3]);
 		}
+		if(recv_buffer[1]=='2'&&i==4)
+			begin=true;
 	}
 	close(cli_sockfd);
 	ret = 0;
