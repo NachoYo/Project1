@@ -171,7 +171,7 @@ int * client(void * arg)
 	}
 
 	while (1) {
-		char hola = "Hola";
+		char hola[] = "Hola";
 		send(fd_sock, (void *)hola, 10, 0);
 		send(fd_sock, " .i. ", 10, 0);
 		send(fd_sock, "xd", 10, 0);
