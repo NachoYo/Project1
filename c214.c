@@ -28,7 +28,7 @@ pthread_t cli_tids[100];
 pthread_t servThread;
 int srv_thds=0,cli_thds=0;
 int pid;
-static void * handle(void *);
+//static void * handle(void *);
 char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
 
 int srv_sock, cli_sock;
@@ -40,7 +40,7 @@ size_t getline_len;
 //functions
 void * srv_listen(void *arg);
 static void * handle(void * arg);
-int * client(void * arg);
+void * client(void * arg);
 void Send(int table[5][5]);
 
 //information about costs
@@ -183,7 +183,7 @@ static void * handle(void * arg)
 	pthread_exit(&ret);
 }
 
-int * client(void * arg)
+void * client(void * arg)
 {
 	char *ipaddress = (char *)(arg);
 	int fd_sock;
@@ -194,7 +194,7 @@ int * client(void * arg)
 	fd_sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (fd_sock == -1) {
 		perror("socket");
-		return 0;
+		return;
 	}
 
 	// addr binding, and connect
@@ -207,10 +207,10 @@ int * client(void * arg)
 	if (ret == -1) {
 		perror("connect");
 		close(fd_sock);
-		return 0;
+		return;
 	}
 	send(fd_sock, (void *)message, strlen(message), 0);
 	close(fd_sock);
 	pthread_exit(&ret);
-	return 0;
+	return;
 }
