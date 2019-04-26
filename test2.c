@@ -14,6 +14,7 @@
 char buffer[1024];
 char *input;
 char r_buffer[1024];
+char message[];
 
 pthread_t srv_tids[100];
 pthread_t cli_tids[100];
@@ -169,24 +170,7 @@ int * client(void * arg)
 		close(fd_sock);
 		return 0;
 	}
-
-		printf("\nWrite what you want to send");
-		input = NULL;
-		ret = getline(&input, &getline_len, stdin);
-		if (ret == -1) { // EOF
-			perror("getline");
-			close(fd_sock);
-		}
-		len = strlen(input);
-		if (len == 0) {
-			free(input);
-		}
-		send(fd_sock, input, len, 0);
-		free(input);
-
-		memset(r_buffer, 0, sizeof(r_buffer));
-		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
-		fflush(NULL);
+		send(fd_sock, (void *)message, strlen(hola), 0);
 		
 	close(fd_sock);
 	pthread_exit(&ret);
