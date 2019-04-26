@@ -27,9 +27,9 @@ int srv_sock, cli_sock;
 	int len;
 
 //functions
-void srv_listen(void *arg);
+void * srv_listen(void *arg);
 static void * handle(void * arg);
-int client(void * arg);
+int * client(void * arg);
 
 int main()
 {
@@ -69,7 +69,7 @@ int main()
 	return 0;
 }
 
-void srv_listen(void *arg)
+void * srv_listen(void *arg)
 {
 	for (;;) {
 	// Listen part
@@ -141,7 +141,7 @@ static void * handle(void * arg)
 	pthread_exit(&ret);
 }
 
-int client(void * arg)
+int * client(void * arg)
 {
 	char *ipaddress = (char *)(arg);
 	int fd_sock;
