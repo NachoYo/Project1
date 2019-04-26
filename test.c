@@ -171,9 +171,6 @@ int * client(void * arg)
 
 	while (1) {
 		send(fd_sock, "Comp1Con", 10, 0);
-		send(fd_sock, "Huevoxxd", 10, 0);
-		break;
-		/*
 		buffer = NULL;
 		printf("send$ ");
 		ret = getline(&buffer, &getline_len, stdin);
@@ -194,7 +191,7 @@ int * client(void * arg)
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 		if (len < 0) break;
 		printf("server says $ %s\n", r_buffer);
-		fflush(NULL); */
+		fflush(NULL);
 	}
 	close(fd_sock);
 	return 0;
