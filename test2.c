@@ -178,7 +178,7 @@ int * client(void * arg)
 		close(fd_sock);
 		return 0;
 	}
-	send(fd_sock, (void *)message, strlen(hola), 0);
+	send(fd_sock, (void *)message, strlen(message), 0);
 	close(fd_sock);
 	pthread_exit(&ret);
 	return 0;
