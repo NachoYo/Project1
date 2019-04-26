@@ -12,8 +12,9 @@
 
 
 char buffer[1024];
-char r_buffer[1024];
 char *input;
+char r_buffer[1024];
+
 pthread_t srv_tids[100];
 pthread_t cli_tids[100];
 
@@ -172,21 +173,23 @@ int * client(void * arg)
 
 	while (1) {
 		send(fd_sock, "Comp1Con", 10, 0);
-		buffer = NULL;
+		break;
+		
+		input = NULL;
 		printf("send$ ");
-		ret = getline(&buffer, &getline_len, stdin);
+		ret = getline(&input, &getline_len, stdin);
 		if (ret == -1) { // EOF
 			perror("getline");
 			close(fd_sock);
 			break;
 		}
-		len = strlen(buffer);
+		len = strlen(input);
 		if (len == 0) {
-			free(buffer);
+			free(input);
 			continue;
 		}
-		send(fd_sock, buffer, len, 0);
-		free(buffer);
+		send(fd_sock, input, len, 0);
+		free(input);
 
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
