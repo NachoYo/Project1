@@ -25,6 +25,7 @@ int srv_sock, cli_sock;
 	int port_num, ret;
 	struct sockaddr_in addr;
 	int len;
+	size_t getline_len;
 
 //functions
 void * srv_listen(void *arg);
@@ -33,7 +34,7 @@ int * client(void * arg);
 
 int main()
 {
-	char *input[1];
+	char input[1024];
 	// arg parsing
 
 	port_num = 56000;
@@ -61,7 +62,7 @@ int main()
 
 	while(1){
 		printf("Type the number of the computer you want to connect");
-		getline(&input,1,stdin);
+		getline(&input,&getline_len,stdin);
 		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[atoi(input)-1]);
 		cli_thds++;
 	}
@@ -147,7 +148,6 @@ int * client(void * arg)
 	int fd_sock;
 	struct sockaddr_in addr_cli;
 	int len;
-	size_t getline_len;
 
 	// socket creation
 	fd_sock = socket(AF_INET, SOCK_STREAM, 0);
