@@ -143,7 +143,7 @@ static void * handle(void * arg)
 
 int client(void * arg)
 {
-	char ipaddress[] = *(char *)arg;
+	char ipaddress[] = (char *)arg;
 	int fd_sock;
 	struct sockaddr_in addr_cli;
 	int len;
