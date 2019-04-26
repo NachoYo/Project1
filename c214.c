@@ -173,9 +173,8 @@ static void * handle(void * arg)
 		{
 		table[atoi(recv_buffer[1])][i]=atoi(recv_buffer[i+3]);
 			if(recv_buffer[2]=='2'&&i==4)
+				begin=true;
 		}
-		
-			begin=true;
 	}
 	close(cli_sockfd);
 	ret = 0;
