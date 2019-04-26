@@ -170,9 +170,7 @@ int * client(void * arg)
 	}
 
 	while (1) {
-		printf("Succesfully connected Write the message you want to send");
-		getline(&input,&getline_len,stdin);
-		len = strlen(input);
+		send(fd_sock, "Comp1Con12", 10, 0);
 		send(fd_sock, input, len, 0);
 		break;
 		/*
