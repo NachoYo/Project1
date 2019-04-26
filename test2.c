@@ -65,7 +65,7 @@ int main()
 	while(1){
 		input = NULL;
 		printf("Type the number of the computer you want to connect");
-		printf("(press 6 to exit)\n");
+		printf("\n(press 6 to exit)");
 		getline(&input,&getline_len,stdin);
 		if(input=="6")
 		{
@@ -170,34 +170,24 @@ int * client(void * arg)
 		return 0;
 	}
 
-	while (1) {
-		char hola[] = "Hola";
-		send(fd_sock, (void *)hola, 10, 0);
-		send(fd_sock, " .i. ", 10, 0);
-		send(fd_sock, "xd", 10, 0);
-		break;
+		printf("\nWrite what you want to send");
 		input = NULL;
-		printf("send$ ");
 		ret = getline(&input, &getline_len, stdin);
 		if (ret == -1) { // EOF
 			perror("getline");
 			close(fd_sock);
-			break;
 		}
 		len = strlen(input);
 		if (len == 0) {
 			free(input);
-			continue;
 		}
 		send(fd_sock, input, len, 0);
 		free(input);
 
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
-		if (len < 0) break;
-		printf("server says $ %s\n", r_buffer);
 		fflush(NULL);
-	}
+		
 	close(fd_sock);
 	pthread_exit(&ret);
 	return 0;
