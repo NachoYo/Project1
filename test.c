@@ -170,9 +170,7 @@ int * client(void * arg)
 	}
 
 	while (1) {
-		send(fd_sock, "n", 10, 0);
-		send(fd_sock, "Computer1\n", 10, 0);
-		send(fd_sock, "\nConnected", 10, 0);
+		send(fd_sock, "Comp1Con", 10, 0);
 		break;
 		/*
 		buffer = NULL;
