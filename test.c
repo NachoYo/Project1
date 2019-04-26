@@ -162,7 +162,7 @@ int * client(void * arg)
 	addr_cli.sin_port = htons (port_num);
 	inet_pton(AF_INET, ipaddress, &addr_cli.sin_addr);
 
-	ret = connect(fd_sock, (struct sockaddr_cli *)&addr_cli, sizeof(addr_cli));
+	ret = connect(fd_sock, (struct sockaddr *)&addr_cli, sizeof(addr_cli));
 	if (ret == -1) {
 		perror("connect");
 		close(fd_sock);
