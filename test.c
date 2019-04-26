@@ -28,12 +28,9 @@ int srv_sock, cli_sock;
 
 int main()
 {
-	char input[];
+	char input[1];
 	// arg parsing
-	if (argc != 2) {
-		printf("usage: srv port\n");
-		return 0;
-	}
+
 	port_num = 56000;
 
 	// socket creation
@@ -147,11 +144,6 @@ int client(void * arg)
 	int len;
 	size_t getline_len;
 
-	// arg parsing
-	if (argc != 3) {
-		printf("usage: cli srv_ip_addr port\n");
-		return 0;
-	}
 	// socket creation
 	fd_sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (fd_sock == -1) {
