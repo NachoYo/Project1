@@ -80,6 +80,7 @@ int main()
 			{
 			strcpy(message, costs);
 			pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[i]);
+			cli_thds++;
 			}
 			begin=false;
 			start=true;
