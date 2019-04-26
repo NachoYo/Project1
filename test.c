@@ -33,7 +33,7 @@ int * client(void * arg);
 
 int main()
 {
-	char input[1];
+	char *input[1];
 	// arg parsing
 
 	port_num = 56000;
