@@ -77,6 +77,9 @@ int main()
 		{
 			return 0;
 		}
+		printf("\nWrite the message you want to send");
+		getline(&message,&getline_len,stdin);
+		
 		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[atoi(input)-1]);
 		cli_thds++;
 	}
@@ -175,8 +178,7 @@ int * client(void * arg)
 		close(fd_sock);
 		return 0;
 	}
-		send(fd_sock, (void *)message, strlen(hola), 0);
-		
+	send(fd_sock, (void *)message, strlen(hola), 0);
 	close(fd_sock);
 	pthread_exit(&ret);
 	return 0;
