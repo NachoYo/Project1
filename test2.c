@@ -10,7 +10,7 @@
 #include <pthread.h>
 #include <netdb.h>
 
-int table[MAX][MAX]={{0,1,3,1,1},
+int table[5][5]={{0,1,3,1,1},
  {0,0,0,0,0},
  {0,0,0,0,0},
  {0,0,0,0,0}};
@@ -39,7 +39,10 @@ size_t getline_len;
 void * srv_listen(void *arg);
 static void * handle(void * arg);
 int * client(void * arg);
-void Send(int int table[5][5]);
+void Send(int table[5][5]);
+
+//information about costs
+char costs[]="#0 09214";
 
 int main()
 {
@@ -68,6 +71,13 @@ int main()
 	}
 	pthread_create(&servThread, NULL, srv_listen, NULL);
 
+	printf("Press enter if all the computers are online");
+	for(int i=1;i<5;i++)
+	{
+		message=costs;
+		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[i]);
+	}
+	
 	while(1){
 		input = NULL;
 		printf("Type the number of the computer you want to connect");
@@ -147,6 +157,13 @@ static void * handle(void * arg)
 	ret = send(cli_sockfd, send_buffer, len, 0);
 	printf("----\n");
 	fflush(NULL);
+	if(recv_buffer[0]=='#')
+	{
+		for(int i=0;i<5;i++)
+		{
+		table[atoi(recv_buffer[1])][i]=atoi(recv_buffer[i+3]);
+		}
+	}
 	close(cli_sockfd);
 	ret = 0;
 	pthread_exit(&ret);
