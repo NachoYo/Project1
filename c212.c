@@ -84,6 +84,7 @@ int main()
 				}
 			}
 			begin=false;
+			start=true;
 		}
 		if(start)
 		{
