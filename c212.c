@@ -28,7 +28,7 @@ pthread_t cli_tids[100];
 pthread_t servThread;
 int srv_thds=0,cli_thds=0;
 int pid;
-static void * handle(void *);
+//static void * handle(void *);
 char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
 
 int srv_sock, cli_sock;
