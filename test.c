@@ -26,6 +26,11 @@ int srv_sock, cli_sock;
 	struct sockaddr_in addr;
 	int len;
 
+//functions
+void listen(void *arg);
+static void * handle(void * arg);
+int client(void * arg);
+
 int main()
 {
 	char input[1];
