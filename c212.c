@@ -43,7 +43,7 @@ int * client(void * arg);
 void Send(int table[5][5]);
 
 //information about costs
-char costs[]="#1 10245";
+char costs[]="#1 20527";
 
 int main()
 {
