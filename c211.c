@@ -19,7 +19,7 @@ int table[5][5]={{0,1,3,1,1},
 char buffer[1024];
 char *input;
 char r_buffer[1024];
-char *message
+char *message;
 
 pthread_t srv_tids[100];
 pthread_t cli_tids[100];
