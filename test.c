@@ -64,8 +64,12 @@ int main()
 
 	while(1){
 		input = NULL;
-		printf("Type the number of the computer you want to connect");
+		printf("Type the number of the computer you want to connect \n(press 6 to exit)");
 		getline(&input,&getline_len,stdin);
+		if(input=="6")
+		{
+			return 0;
+		}
 		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[atoi(input)-1]);
 		cli_thds++;
 	}
@@ -121,24 +125,18 @@ static void * handle(void * arg)
 	}
 	/* read from client host:port */
 
-	while (1) {
 	int len = 0;
 	printf("A computer has beed connected");
 	memset(recv_buffer, 0, sizeof(recv_buffer));
 	len = recv(cli_sockfd, recv_buffer, sizeof(recv_buffer), 0);
-	if (len <-1) break;
 	printf("%s\n len:%d\n", recv_buffer, len);
 	memset(send_buffer, 0, sizeof(send_buffer));
 	sprintf(send_buffer, "[%s:%s]%s len:%d\n", 
 				hbuf, sbuf, recv_buffer, len);
 	len = strlen(send_buffer);
-
 	ret = send(cli_sockfd, send_buffer, len, 0);
-	if (ret == -1) break;
 	printf("----\n");
 	fflush(NULL);
-
-	}
 	close(cli_sockfd);
 	ret = 0;
 	pthread_exit(&ret);
@@ -172,9 +170,10 @@ int * client(void * arg)
 	}
 
 	while (1) {
-		send(fd_sock, "Comp1Con", 10, 0);
+		char hola = "Hola";
+		send(fd_sock, hola, 10, 0);
+		send(fd_sock, "xd", 10, 0);
 		break;
-		
 		input = NULL;
 		printf("send$ ");
 		ret = getline(&input, &getline_len, stdin);
@@ -198,5 +197,6 @@ int * client(void * arg)
 		fflush(NULL);
 	}
 	close(fd_sock);
+	pthread_exit(&ret);
 	return 0;
 }
