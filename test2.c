@@ -72,6 +72,7 @@ int main()
 	pthread_create(&servThread, NULL, srv_listen, NULL);
 
 	printf("Press enter if all the computers are online");
+	scanf();
 	for(int i=1;i<5;i++)
 	{
 		message=costs;
