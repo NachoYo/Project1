@@ -72,9 +72,10 @@ int main()
 	pthread_create(&servThread, NULL, srv_listen, NULL);
 
 	printf("Press enter if all the computers are online");
-	scanf();
+	getline(&input,&getline_len,stdin);
 	for(int i=1;i<5;i++)
 	{
+		strcpy(message, costs);
 		message=costs;
 		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[i]);
 	}
