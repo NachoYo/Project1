@@ -84,6 +84,7 @@ int main()
 				}
 			}
 			begin=false;
+			start=true;
 		}
 		if(start)
 		{
@@ -172,7 +173,7 @@ static void * handle(void * arg)
 		{
 		table[atoi(recv_buffer[1])][i]=atoi(recv_buffer[i+3]);
 		}
-		if(recv_buffer[1]=='2'&&i==4)
+		if(recv_buffer[2]=='2'&&i==4)
 			begin=true;
 	}
 	close(cli_sockfd);
