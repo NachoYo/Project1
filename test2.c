@@ -65,7 +65,12 @@ int main()
 	while(1){
 		input = NULL;
 		printf("Type the number of the computer you want to connect");
+		printf("(press 6 to exit)\n");
 		getline(&input,&getline_len,stdin);
+		if(input=="6")
+		{
+			return 0;
+		}
 		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[atoi(input)-1]);
 		cli_thds++;
 	}
@@ -166,7 +171,9 @@ int * client(void * arg)
 	}
 
 	while (1) {
-		send(fd_sock, "Comp1Con", 10, 0);
+		char hola = "Hola";
+		send(fd_sock, hola, 10, 0);
+		send(fd_sock, "xd", 10, 0);
 		break;
 		input = NULL;
 		printf("send$ ");
