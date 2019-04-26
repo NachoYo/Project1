@@ -20,7 +20,7 @@ bool begin =false;
 char buffer[1024];
 char *input;
 char r_buffer[1024];
-char *message[];
+char *message;
 
 pthread_t srv_tids[100];
 pthread_t cli_tids[100];
