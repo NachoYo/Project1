@@ -128,8 +128,8 @@ static void * handle(void * arg)
 {
 	int cli_sockfd = *(int *)arg;
 	int ret = -1;
-	char *recv_buffer = (char *)malloc(1024);
-	char *send_buffer = (char *)malloc(1024);
+	char recv_buffer;// = (char *)malloc(1024);
+	char send_buffer; //= (char *)malloc(1024);
 	char hbuf[NI_MAXHOST], sbuf[NI_MAXSERV];
            
 	/* get peer addr */
