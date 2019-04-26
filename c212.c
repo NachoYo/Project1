@@ -173,7 +173,7 @@ static void * handle(void * arg)
 	{
 		for(int i=0;i<5;i++)
 		{
-		table[atoi(recv_buffer[1])][i]=atoi(recv_buffer[i+3]);
+		table[atoi((char *)recv_buffer[1])][i]=atoi((char *)recv_buffer[i+3]);
 			if(recv_buffer[1]=='0'&&i==4)
 				begin=true;
 		}
