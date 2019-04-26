@@ -20,7 +20,7 @@ bool begin =false;
 char buffer[1024];
 char *input;
 char r_buffer[1024];
-char message[];
+char *message[];
 
 pthread_t srv_tids[100];
 pthread_t cli_tids[100];
@@ -170,7 +170,7 @@ static void * handle(void * arg)
 	{
 		for(int i=0;i<5;i++)
 		{
-		table[atoi(recv_buffer[1])][i]=atoi(recv_buffer[i+3]);
+		table[atoi((char *)recv_buffer[1])][i]=atoi((char *)recv_buffer[i+3]);
 			if(recv_buffer[1]=='3'&&i==4)
 				begin=true;
 		}		
