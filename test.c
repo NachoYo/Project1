@@ -12,7 +12,7 @@
 
 
 char buffer[1024];
-char input[1024];
+char *input;
 pthread_t srv_tids[100];
 pthread_t cli_tids[100];
 
@@ -61,12 +61,12 @@ int main()
 	pthread_create(&servThread, NULL, srv_listen, NULL);
 
 	while(1){
-		buffer = NULL;
+		input = NULL;
 		printf("Type the number of the computer you want to connect");
 
-		getline(&buffer,&getline_len,stdin);
+		getline(&input,&getline_len,stdin);
 
-		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[atoi(buffer)-1]);
+		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[atoi(input)-1]);
 		cli_thds++;
 	}
 
