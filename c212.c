@@ -140,7 +140,8 @@ static void * handle(void * arg)
 	char *recv_buffer = (char *)malloc(1024 *sizeof(char));
 	char *send_buffer = (char *)malloc(1024 *sizeof(char));
 	char hbuf[NI_MAXHOST], sbuf[NI_MAXSERV];
-           
+        char auxiliar;   
+	
 	/* get peer addr */
 	struct sockaddr peer_addr;
 	socklen_t peer_addr_len;
@@ -169,18 +170,19 @@ static void * handle(void * arg)
 	ret = send(cli_sockfd, send_buffer, len, 0);
 	printf("----\n");
 	
-	if(recv_buffer[0]=='#')
+	strcpy(auxiliar, recv_buffer);
+	
+	if(auxiliar[0]=='#')
 	{
 		printf("Antes del For");
 		for(int i=0;i<5;i++)
 		{
-		table[atoi((char *)recv_buffer[1])][i]=atoi((char *)recv_buffer[i+3]);
-			if(recv_buffer[1]=='0'&&i==4)
+		table[atoi(auxiliar[1])][i]=atoi(auxiliar[i+3]);
+			if(auxiliar[1]=='0'&&i==4)
 				begin=true;
 			printf("Dentro del For");
 		}
 		printf("%d %d %d %d %d",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
-			
 	}
 	close(cli_sockfd);
 	ret = 0;
