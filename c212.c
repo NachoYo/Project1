@@ -177,7 +177,7 @@ static void * handle(void * arg)
 			if(recv_buffer[1]=='0'&&i==4)
 				begin=true;
 		}
-		
+		printf("%d %d %d %d %d",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
 			
 	}
 	close(cli_sockfd);
