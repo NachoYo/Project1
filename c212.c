@@ -142,7 +142,7 @@ static void * handle(void * arg)
 	char recv_buffer[1024];
 	char *send_buffer = (char *)malloc(1024);
 	char hbuf[NI_MAXHOST], sbuf[NI_MAXSERV];
-        char auxiliar[8];   
+        char auxiliar[9];   
 	
 	/* get peer addr */
 	struct sockaddr peer_addr;
