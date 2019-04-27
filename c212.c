@@ -22,6 +22,8 @@ char *input;
 char r_buffer[1024];
 char *message;
 
+char *recv_buffer = (char *)malloc(1024);
+
 pthread_t srv_tids[100];
 pthread_t cli_tids[100];
 
@@ -139,10 +141,10 @@ static void * handle(void * arg)
 	int cli_sockfd = *(int *)arg;
 	int ret = -1;
 	//char *recv_buffer = (char *)malloc(1024);
-	char recv_buffer[1024];
+	//char recv_buffer[1024];
 	char *send_buffer = (char *)malloc(1024);
 	char hbuf[NI_MAXHOST], sbuf[NI_MAXSERV];
-        char auxiliar[9];   
+        char auxiliar[8];   
 	
 	/* get peer addr */
 	struct sockaddr peer_addr;
@@ -167,6 +169,7 @@ static void * handle(void * arg)
 	printf("%s\n len:%d\n", recv_buffer, len);
 	strcpy(auxiliar, recv_buffer);
 	printf("%s OBOBO",auxiliar);
+	
 	if(auxiliar[0]=='#')
 	{
 		printf("Antes del For");
