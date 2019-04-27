@@ -19,7 +19,7 @@ int table[5][5]={{0,1,3,1,1},
 char buffer[1024];
 char *input;
 char r_buffer[1024];
-char *message;
+char message[];
 
 pthread_t srv_tids[100];
 pthread_t cli_tids[100];
@@ -128,8 +128,8 @@ static void * handle(void * arg)
 {
 	int cli_sockfd = *(int *)arg;
 	int ret = -1;
-	char *recv_buffer = (char *)malloc(1024 *sizeof(char));
-	char *send_buffer = (char *)malloc(1024 *sizeof(char));
+	char *recv_buffer = (char *)malloc(1024);
+	char *send_buffer = (char *)malloc(1024);
 	char hbuf[NI_MAXHOST], sbuf[NI_MAXSERV];
            
 	/* get peer addr */
@@ -164,7 +164,7 @@ static void * handle(void * arg)
 	{
 		for(int i=0;i<5;i++)
 		{
-		table[atoi((char *)recv_buffer[1])][i]=atoi((char *)recv_buffer[i+3]);
+		table[atoi(recv_buffer[1])][i]=atoi(recv_buffer[i+3]);
 		}
 	}
 	close(cli_sockfd);
