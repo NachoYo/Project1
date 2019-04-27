@@ -50,7 +50,7 @@ int main()
 {
 	// arg parsing
 
-	port_num = 56000;
+	port_num = 56001;
 
 	// socket creation
 	srv_sock = socket(AF_INET, SOCK_STREAM, 0);
