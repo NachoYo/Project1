@@ -22,7 +22,7 @@ char *input;
 char r_buffer[1024];
 char *message;
 
-char *recv_buffer = (char *)malloc(1024);
+char recv_buffer[];
 
 pthread_t srv_tids[100];
 pthread_t cli_tids[100];
