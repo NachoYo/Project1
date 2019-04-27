@@ -31,7 +31,7 @@ int pid;
 //static void * handle(void *);
 char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
 
-int srv_sock, cli_sock;
+int srv_sock;
 int port_num, ret;
 struct sockaddr_in addr;
 int len;
@@ -111,6 +111,7 @@ int main()
 
 void * srv_listen(void *arg)
 {
+	int cli_sock;
 	for (;;) {
 	// Listen part
 	ret = listen(srv_sock, 0);
