@@ -171,7 +171,7 @@ static void * handle(void * arg)
 	printf("----\n");
 	
 	strcpy(auxiliar, recv_buffer);
-	
+	printf("%s OBOBO",auxiliar);
 	if(auxiliar[0]=='#')
 	{
 		printf("Antes del For");
