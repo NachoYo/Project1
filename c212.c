@@ -168,7 +168,7 @@ static void * handle(void * arg)
 	len = strlen(send_buffer);
 	ret = send(cli_sockfd, send_buffer, len, 0);
 	printf("----\n");
-	fflush(NULL);
+	
 	if(recv_buffer[0]=='#')
 	{
 		for(int i=0;i<5;i++)
@@ -183,6 +183,7 @@ static void * handle(void * arg)
 	close(cli_sockfd);
 	ret = 0;
 	pthread_exit(&ret);
+	fflush(NULL);
 }
 
 void * client(void * arg)
