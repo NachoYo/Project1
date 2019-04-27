@@ -167,6 +167,7 @@ static void * handle(void * arg)
 	memset(recv_buffer, 0, sizeof(recv_buffer));
 	len = recv(cli_sockfd, recv_buffer, sizeof(recv_buffer), 0);
 	printf("%s\n len:%d\n", recv_buffer, len);
+	printf("\nSegunda vez %s",recv_buffer);
 	strcpy(auxiliar, recv_buffer);
 	printf("%s OBOBO",auxiliar);
 	
