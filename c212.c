@@ -164,7 +164,7 @@ static void * handle(void * arg)
 	memset(recv_buffer, 0, sizeof(recv_buffer));
 	len = recv(cli_sockfd, recv_buffer, sizeof(recv_buffer), 0);
 	printf("%s\n len:%d\n", recv_buffer, len);
-	
+	strcpy(auxiliar, recv_buffer);
 	printf("%s OBOBO",auxiliar);
 	if(auxiliar[0]=='#')
 	{
@@ -185,8 +185,6 @@ static void * handle(void * arg)
 	len = strlen(send_buffer);
 	ret = send(cli_sockfd, send_buffer, len, 0);
 	printf("----\n");
-	
-	strcpy(auxiliar, recv_buffer);
 	
 	close(cli_sockfd);
 	ret = 0;
