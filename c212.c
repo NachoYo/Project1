@@ -164,14 +164,7 @@ static void * handle(void * arg)
 	memset(recv_buffer, 0, sizeof(recv_buffer));
 	len = recv(cli_sockfd, recv_buffer, sizeof(recv_buffer), 0);
 	printf("%s\n len:%d\n", recv_buffer, len);
-	memset(send_buffer, 0, sizeof(send_buffer));
-	sprintf(send_buffer, "[%s:%s]%s len:%d\n", 
-				hbuf, sbuf, recv_buffer, len);
-	len = strlen(send_buffer);
-	ret = send(cli_sockfd, send_buffer, len, 0);
-	printf("----\n");
 	
-	strcpy(auxiliar, recv_buffer);
 	printf("%s OBOBO",auxiliar);
 	if(auxiliar[0]=='#')
 	{
@@ -185,6 +178,16 @@ static void * handle(void * arg)
 		}
 		printf("%d %d %d %d %d",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
 	}
+	
+	memset(send_buffer, 0, sizeof(send_buffer));
+	sprintf(send_buffer, "[%s:%s]%s len:%d\n", 
+				hbuf, sbuf, recv_buffer, len);
+	len = strlen(send_buffer);
+	ret = send(cli_sockfd, send_buffer, len, 0);
+	printf("----\n");
+	
+	strcpy(auxiliar, recv_buffer);
+	
 	close(cli_sockfd);
 	ret = 0;
 	pthread_exit(&ret);
