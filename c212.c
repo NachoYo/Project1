@@ -171,11 +171,13 @@ static void * handle(void * arg)
 	
 	if(recv_buffer[0]=='#')
 	{
+		printf("Antes del For");
 		for(int i=0;i<5;i++)
 		{
 		table[atoi((char *)recv_buffer[1])][i]=atoi((char *)recv_buffer[i+3]);
 			if(recv_buffer[1]=='0'&&i==4)
 				begin=true;
+			printf("Dentro del For");
 		}
 		printf("%d %d %d %d %d",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
 			
