@@ -8,9 +8,10 @@
 #include <arpa/inet.h>
 
 char *buffer;
-char *message="";
 char r_buffer[1024];
+char message[1024];
 char *costs="# 1 1 0 9 8 0";
+char *identifier="2;
 int table[5][5]={{0,0,0,0,0},
  {1,0,9,8,0},
  {0,0,0,0,0},
@@ -71,9 +72,14 @@ int main()
 			free(buffer);
 			continue;
 		}
-			printf("Lo que va a mandar: 2+%s\n",message);
+		
+		
+		strcat(message,identifier);
+		strcat(message,buffer);
+		buffer=(char *)message;
 			
-		send(fd_sock, "2"+buffer, len, 0);
+		printf("Lo que va a mandar: %s\n",message);
+		send(fd_sock, buffer, len, 0);
 		free(message);
 		}
 		
