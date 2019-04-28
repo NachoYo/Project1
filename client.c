@@ -75,11 +75,11 @@ int main(int argc, char *argv[])
 		}
 		
 		else{
-		strcpy(buffer, costs);
-			printf("Antes de mandar\n");
+		sprintf(buffer,"%s",costs);
+		printf("Antes de mandar\n");
 		send(fd_sock, buffer, len, 0);
 		begin=1;	
-			printf("Mandado\n");
+		printf("Mandado\n");
 		}
 	}
 	// bye-bye
