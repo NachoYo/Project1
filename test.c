@@ -179,7 +179,7 @@ int main(int argc , char *argv[])
                      {
                           for(int i=0;i<5;i++)
 		               {
-		               table[atoi(buffer[1])][i]=atoi(buffer[i+3]);
+		               table[atoi(&buffer[1])][i]=atoi(&buffer[i+3]);
 		               }
                          printf("TABLE %d %d %d %d %d",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
                      }
