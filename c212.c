@@ -58,6 +58,7 @@ int main()
 				sprintf(auxiliar,"%c",r_buffer[i*5+j+1]);
 				table[i][j]=atoi(auxiliar);
 				printf("Elemento q guarda:%c\n elemento guardado:%d",r_buffer[i*5+j+1],table[i][j]);
+					memset(auxiliar, 0, sizeof(axiliar));
 				}
 			}
 			printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
