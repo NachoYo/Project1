@@ -15,7 +15,7 @@ int table[5][5]={{0,0,0,0,0},
  {0,0,0,0,0},
 {0,0,0,0,0}};
 
-int main()
+int main(int argc, char *argv[])
 {
 	int begin=0;
 	int fd_sock, cli_sock;
@@ -25,11 +25,11 @@ int main()
 	size_t getline_len;
 
 	// arg parsing
-	if (argc != 3) {
+	/*if (argc != 3) {
 		printf("usage: cli srv_ip_addr port\n");
 		return 0;
-	}
-	port_num = atoi(argv[2]);
+	}*/
+	port_num = 8888;
 
 	// socket creation
 	fd_sock = socket(AF_INET, SOCK_STREAM, 0);
