@@ -12,7 +12,7 @@
 #define TRUE   1  
 #define FALSE  0  
 #define PORT 8888  
-
+ int cnt=0;
 int table[5][5]={{0,1,2,3,1},
  {0,0,0,0,0},
  {0,0,0,0,0},
@@ -176,7 +176,7 @@ int main(int argc , char *argv[])
                      
                 //Echo back the message that came in  
                 else 
-                {   int cnt=0;
+                {  
                      if(buffer[0]=='#')
                      {
                           cnt++;
