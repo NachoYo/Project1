@@ -17,6 +17,7 @@ int table[5][5]={{0,1,2,3,1},
  {0,0,0,0,0},
  {0,0,0,0,0},
 {0,0,0,0,0}};
+char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
 
 int main(int argc , char *argv[])   
 {   
@@ -33,7 +34,7 @@ int main(int argc , char *argv[])
     fd_set readfds;   
          
     //a message  
-    char *message = "ECHO Daemon v1.0 \r\n";   
+    char *message = "Welcome to the server\r\n";   
      
     //initialise all client_socket[] to 0 so not checked  
     for (i = 0; i < max_clients; i++)   
