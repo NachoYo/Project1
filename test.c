@@ -195,9 +195,9 @@ int main(int argc , char *argv[])
 			 {
 				 	for(int i=0;i<5;i++)
 					{
-						for(int j=0;j<5,i++)
+						for(int j=0;j<5,j++)
 						{
-						menssage2+=table[i][j];
+						message2+=table[i][j];
 						}
 					}
 				 	for(int i=0;i<sizeof(client_socket);i++)
