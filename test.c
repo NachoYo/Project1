@@ -190,14 +190,14 @@ int main(int argc , char *argv[])
 			 printf("TABLE[3] %d %d %d %d %d \n",table[2][0],table[2][1],table[2][2],table[2][3],table[2][4]);
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
                          printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
-			     int cont=0;
+			 /*    int cont=0;
 			 for(int i=0;i<5;i++)
 		               {
 				if(comp[i])
 					cont++;
-		               }
+		               }*/
 			 printf("Computer that sent it: %c \n",buffer[2]);
-			 if(buffer[2]=='4'&&cont==5)
+			 if(buffer[2]=='4'/*&&cont==5*/)
 			 {
 				 printf("Entro al If\n");
 				 sleep(1);
