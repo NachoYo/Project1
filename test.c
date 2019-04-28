@@ -155,6 +155,10 @@ int main(int argc , char *argv[])
         //else its some IO operation on some other socket 
         for (i = 0; i < max_clients; i++)   
         {   
+	for(int i=0;i<sizeof(client_socket);i++)
+	{
+		send(client_socket[i] , message2 , strlen(message2) , 0 ); 
+	}
             sd = client_socket[i];   
                  
             if (FD_ISSET( sd , &readfds))   
@@ -198,15 +202,8 @@ int main(int argc , char *argv[])
                     //of the data read  
                     buffer[valread] = '\0';
                     send(sd , buffer , strlen(buffer) , 0 );   
-                    memset(buffer, 0, sizeof(buffer));
-			     
-			    for(int i=0;i<sizeof(client_socket);i++)
-			{
-				send(client_socket[i] , message2 , strlen(message2) , 0 ); 
-			} 
-			     
+                    memset(buffer, 0, sizeof(buffer));     
 		    }
-			
                 }   
             }   
         }   
