@@ -1,202 +1,184 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <unistd.h>
-#include <string.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <pthread.h>
-#include <netdb.h>
-
-
-char buffer[1024];
-char *input;
-char r_buffer[1024];
-
-pthread_t srv_tids[100];
-pthread_t cli_tids[100];
-
-pthread_t servThread;
-int srv_thds=0,cli_thds=0;
-int pid;
-static void * handle(void *);
-char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214"};
-
-int srv_sock, cli_sock;
-	int port_num, ret;
-	struct sockaddr_in addr;
-	int len;
-	size_t getline_len;
-
-//functions
-void * srv_listen(void *arg);
-static void * handle(void * arg);
-int * client(void * arg);
-
-int main()
-{
-	// arg parsing
-
-	port_num = 56000;
-
-	// socket creation
-	srv_sock = socket(AF_INET, SOCK_STREAM, 0);
-	if (srv_sock == -1) {
-		perror("Server socket CREATE fail!!");
-		return 0;
-	}
-
-	// addr binding
-	memset(&addr, 0, sizeof(addr));
-	addr.sin_family = AF_INET;
-	addr.sin_addr.s_addr = htons (INADDR_ANY); // 32bit IPV4 addr that not use static IP addr
-	addr.sin_port = htons (port_num); // using port num
-	
-	ret = bind (srv_sock, (struct sockaddr *)&addr, sizeof(addr));
-	if (ret == -1) {
-		perror("BIND error!!");
-		close(srv_sock);
-		return 0;
-	}
-	pthread_create(&servThread, NULL, srv_listen, NULL);
-
-	while(1){
-		input = NULL;
-		printf("Type the number of the computer you want to connect \n(press 6 to exit)");
-		getline(&input,&getline_len,stdin);
-		if(input=="6")
-		{
-			return 0;
-		}
-		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[atoi(input)-1]);
-		cli_thds++;
-	}
-
-	return 0;
-}
-
-void * srv_listen(void *arg)
-{
-	for (;;) {
-	// Listen part
-	ret = listen(srv_sock, 0);
-
-	if (ret == -1) {
-		perror("LISTEN stanby mode fail");
-		close(srv_sock);
-		return 0;
-	}
-
-	// Accept part ( create new client socket for communicate to client ! )
-	cli_sock = accept(srv_sock, (struct sockaddr *)NULL, NULL); // client socket
-	if (cli_sock == -1) {
-		perror("cli_sock connect ACCEPT fail");
-		close(srv_sock);
-	}
-	srv_thds++;
-	// cli handler
-	pthread_create(&srv_tids[srv_thds], NULL, handle, &cli_sock);
-	} // end for
-}
-
-static void * handle(void * arg)
-{
-	int cli_sockfd = *(int *)arg;
-	int ret = -1;
-	char *recv_buffer = (char *)malloc(1024);
-	char *send_buffer = (char *)malloc(1024);
-	char hbuf[NI_MAXHOST], sbuf[NI_MAXSERV];
+#include <stdio.h>  
+#include <string.h>   
+#include <stdlib.h>  
+#include <errno.h>  
+#include <unistd.h>   
+#include <arpa/inet.h>    
+#include <sys/types.h>  
+#include <sys/socket.h>  
+#include <netinet/in.h>  
+#include <sys/time.h>
+     
+#define TRUE   1  
+#define FALSE  0  
+#define PORT 8888  
+     
+int main(int argc , char *argv[])   
+{   
+    int opt = TRUE;   
+    int master_socket , addrlen , new_socket , client_socket[30] ,  
+          max_clients = 30 , activity, i , valread , sd;
+    int max_sd;   
+    struct sockaddr_in address;   
+         
+    char buffer[1025];  //data buffer of 1K  
+         
+    //set of socket descriptors  
+    fd_set readfds;   
+         
+    //a message  
+    char *message = "ECHO Daemon v1.0 \r\n";   
+     
+    //initialise all client_socket[] to 0 so not checked  
+    for (i = 0; i < max_clients; i++)   
+    {   
+        client_socket[i] = 0;   
+    }   
+         
+    //create a master socket  
+    if( (master_socket = socket(AF_INET , SOCK_STREAM , 0)) == 0)   
+    {   
+        perror("socket failed");   
+        exit(EXIT_FAILURE);   
+    }   
+     
+    //set master socket to allow multiple connections ,  
+    //this is just a good habit, it will work without this  
+    if( setsockopt(master_socket, SOL_SOCKET, SO_REUSEADDR, (char *)&opt,  
+          sizeof(opt)) < 0 )   
+    {   
+        perror("setsockopt");   
+        exit(EXIT_FAILURE);   
+    }   
+     
+    //type of socket created  
+    address.sin_family = AF_INET;   
+    address.sin_addr.s_addr = INADDR_ANY;   
+    address.sin_port = htons( PORT );   
+         
+    //bind the socket to localhost port 8888  
+    if (bind(master_socket, (struct sockaddr *)&address, sizeof(address))<0)   
+    {   
+        perror("bind failed");   
+        exit(EXIT_FAILURE);   
+    }   
+    printf("Listener on port %d \n", PORT);   
+         
+    //try to specify maximum of 3 pending connections for the master socket  
+    if (listen(master_socket, 3) < 0)   
+    {   
+        perror("listen");   
+        exit(EXIT_FAILURE);   
+    }   
+         
+    //accept the incoming connection  
+    addrlen = sizeof(address);   
+    puts("Waiting for connections ...");   
+         
+    while(TRUE)   
+    {   
+        //clear the socket set  
+        FD_ZERO(&readfds);   
+     
+        //add master socket to set  
+        FD_SET(master_socket, &readfds);   
+        max_sd = master_socket;   
+             
+        //add child sockets to set  
+        for ( i = 0 ; i < max_clients ; i++)   
+        {   
+            //socket descriptor  
+            sd = client_socket[i];   
+                 
+            //if valid socket descriptor then add to read list  
+            if(sd > 0)   
+                FD_SET( sd , &readfds);   
+                 
+            //highest file descriptor number, need it for the select function  
+            if(sd > max_sd)   
+                max_sd = sd;   
+        }   
+     
+        //wait for an activity on one of the sockets , timeout is NULL ,  
+        //so wait indefinitely  
+        activity = select( max_sd + 1 , &readfds , NULL , NULL , NULL);   
+       
+        if ((activity < 0) && (errno!=EINTR))   
+        {   
+            printf("select error");   
+        }   
+             
+        //If something happened on the master socket ,  
+        //then its an incoming connection  
+        if (FD_ISSET(master_socket, &readfds))   
+        {   
+            if ((new_socket = accept(master_socket,  
+                    (struct sockaddr *)&address, (socklen_t*)&addrlen))<0)   
+            {   
+                perror("accept");   
+                exit(EXIT_FAILURE);   
+            }   
+             
+            //inform user of socket number - used in send and receive commands  
+            printf("New connection , socket fd is %d , ip is : %s , port : %d  
+                  \n" , new_socket , inet_ntoa(address.sin_addr) , ntohs 
+                  (address.sin_port));   
            
-	/* get peer addr */
-	struct sockaddr peer_addr;
-	socklen_t peer_addr_len;
-	memset(&peer_addr, 0, sizeof(peer_addr));
-	peer_addr_len = sizeof(peer_addr);
-	ret = getpeername(cli_sockfd, &peer_addr, &peer_addr_len);
-	ret = getnameinfo(&peer_addr, peer_addr_len, 
-		hbuf, sizeof(hbuf), sbuf, sizeof(sbuf), 
-		NI_NUMERICHOST | NI_NUMERICSERV); 
-
-	if (ret != 0) {
-		ret = -1;
-		pthread_exit(&ret);
-	}
-	/* read from client host:port */
-
-	int len = 0;
-	printf("A computer has beed connected");
-	memset(recv_buffer, 0, sizeof(recv_buffer));
-	len = recv(cli_sockfd, recv_buffer, sizeof(recv_buffer), 0);
-	printf("%s\n len:%d\n", recv_buffer, len);
-	memset(send_buffer, 0, sizeof(send_buffer));
-	sprintf(send_buffer, "[%s:%s]%s len:%d\n", 
-				hbuf, sbuf, recv_buffer, len);
-	len = strlen(send_buffer);
-	ret = send(cli_sockfd, send_buffer, len, 0);
-	printf("----\n");
-	fflush(NULL);
-	close(cli_sockfd);
-	ret = 0;
-	pthread_exit(&ret);
-}
-
-int * client(void * arg)
-{
-	char *ipaddress = (char *)(arg);
-	int fd_sock;
-	struct sockaddr_in addr_cli;
-	int len;
-
-	// socket creation
-	fd_sock = socket(AF_INET, SOCK_STREAM, 0);
-	if (fd_sock == -1) {
-		perror("socket");
-		return 0;
-	}
-
-	// addr binding, and connect
-	memset(&addr_cli, 0, sizeof(addr_cli));
-	addr_cli.sin_family = AF_INET;
-	addr_cli.sin_port = htons (port_num);
-	inet_pton(AF_INET, ipaddress, &addr_cli.sin_addr);
-
-	ret = connect(fd_sock, (struct sockaddr *)&addr_cli, sizeof(addr_cli));
-	if (ret == -1) {
-		perror("connect");
-		close(fd_sock);
-		return 0;
-	}
-
-	while (1) {
-		char hola = "Hola";
-		send(fd_sock, hola, 10, 0);
-		send(fd_sock, "xd", 10, 0);
-		break;
-		input = NULL;
-		printf("send$ ");
-		ret = getline(&input, &getline_len, stdin);
-		if (ret == -1) { // EOF
-			perror("getline");
-			close(fd_sock);
-			break;
-		}
-		len = strlen(input);
-		if (len == 0) {
-			free(input);
-			continue;
-		}
-		send(fd_sock, input, len, 0);
-		free(input);
-
-		memset(r_buffer, 0, sizeof(r_buffer));
-		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
-		if (len < 0) break;
-		printf("server says $ %s\n", r_buffer);
-		fflush(NULL);
-	}
-	close(fd_sock);
-	pthread_exit(&ret);
-	return 0;
-}
+            //send new connection greeting message  
+            if( send(new_socket, message, strlen(message), 0) != strlen(message) )   
+            {   
+                perror("send");   
+            }   
+                 
+            puts("Welcome message sent successfully");   
+                 
+            //add new socket to array of sockets  
+            for (i = 0; i < max_clients; i++)   
+            {   
+                //if position is empty  
+                if( client_socket[i] == 0 )   
+                {   
+                    client_socket[i] = new_socket;   
+                    printf("Adding to list of sockets as %d\n" , i);   
+                         
+                    break;   
+                }   
+            }   
+        }   
+             
+        //else its some IO operation on some other socket 
+        for (i = 0; i < max_clients; i++)   
+        {   
+            sd = client_socket[i];   
+                 
+            if (FD_ISSET( sd , &readfds))   
+            {   
+                //Check if it was for closing , and also read the  
+                //incoming message  
+                if ((valread = read( sd , buffer, 1024)) == 0)   
+                {   
+                    //Somebody disconnected , get his details and print  
+                    getpeername(sd , (struct sockaddr*)&address , \ 
+                        (socklen_t*)&addrlen);   
+                    printf("Host disconnected , ip %s , port %d \n" ,  
+                          inet_ntoa(address.sin_addr) , ntohs(address.sin_port));   
+                         
+                    //Close the socket and mark as 0 in list for reuse  
+                    close( sd );   
+                    client_socket[i] = 0;   
+                }   
+                     
+                //Echo back the message that came in  
+                else 
+                {   
+                    //set the string terminating NULL byte on the end  
+                    //of the data read  
+                    buffer[valread] = '\0';   
+                    send(sd , buffer , strlen(buffer) , 0 );   
+                }   
+            }   
+        }   
+    }   
+         
+    return 0;   
+}   
