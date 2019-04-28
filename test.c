@@ -65,7 +65,7 @@ int main(int argc , char *argv[])
     address[add_index].sin_port = htons( PORT );   
          
     //bind the socket to localhost port 8888  
-    if (bind(master_socket, (struct sockaddr *)&address[add_index], sizeof(address))<0)   
+    if (bind(master_socket, (struct sockaddr *)&address[add_index], sizeof(address[add_index]))<0)   
     {   
         perror("bind failed");   
         exit(EXIT_FAILURE);   
@@ -80,7 +80,7 @@ int main(int argc , char *argv[])
     }   
          
     //accept the incoming connection  
-    addrlen = sizeof(address);   
+    addrlen = sizeof(address[add_index]);   
     puts("Waiting for connections ...");   
          
     while(TRUE)   
@@ -121,7 +121,7 @@ int main(int argc , char *argv[])
         if (FD_ISSET(master_socket, &readfds))   
         {   
             if ((new_socket = accept(master_socket,  
-                    (struct sockaddr *)&address, (socklen_t*)&addrlen))<0)   
+                    (struct sockaddr *)&address[add_index], (socklen_t*)&addrlen))<0)   
             {   
                 perror("accept");   
                 exit(EXIT_FAILURE);   
@@ -150,6 +150,7 @@ int main(int argc , char *argv[])
                     break;   
                 }   
             }   
+		add_index++;
         }   
              
         //else its some IO operation on some other socket 
@@ -164,10 +165,10 @@ int main(int argc , char *argv[])
                 if ((valread = read( sd , buffer, 1024)) == 0)   
                 {   
                     //Somebody disconnected , get his details and print  
-                    getpeername(sd , (struct sockaddr*)&address , \ 
+                    getpeername(sd , (struct sockaddr*)&address[add_index] , \ 
                         (socklen_t*)&addrlen);   
                     printf("Host disconnected , ip %s , port %d \n" ,  
-                          inet_ntoa(address.sin_addr) , ntohs(address.sin_port));   
+                          inet_ntoa(address[add_index].sin_addr) , ntohs(address[add_index].sin_port));   
                          
                     //Close the socket and mark as 0 in list for reuse  
                     close( sd );   
@@ -180,10 +181,10 @@ int main(int argc , char *argv[])
 			printf("Client Says: %s\n",buffer);
                      if(buffer[0]=='#')
                      {
-                          for(int i=0;i<5;i++)
+                          for(int j=0;j<5;j++)
 		               {
-		               table[atoi(&buffer[1])][i]=atoi(&buffer[(i+2)*2]);
-				  printf("%d\n",atoi(&buffer[i+2]));
+		               table[atoi(&buffer[1])][j]=atoi(&buffer[(j+2)*2]);
+				  printf("%d\n",atoi(&buffer[j+2]));
 		               }
 			 printf("TABLE %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
 			 printf("TABLE %d %d %d %d %d \n",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
@@ -200,9 +201,9 @@ int main(int argc , char *argv[])
                     send(sd , buffer , strlen(buffer) , 0 );   
                     memset(buffer, 0, sizeof(buffer));
 			     
-			    for(int i=0;i<sizeof(client_socket);i++)
+			    for(int j=0;j<sizeof(client_socket);j++)
 			{
-				send(client_socket[i] , message2 , strlen(message2) , 0 ); 
+				sendto(client_socket[j] , message2 , strlen(message2) , 0 ,address[j],strlen(address[j].sin_addr)); 
 			} 
 			     
 		    }
