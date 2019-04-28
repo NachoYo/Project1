@@ -9,8 +9,8 @@
 
 char *buffer;
 char r_buffer[1024];
-char *costs="# 1 3 4 5 6 7";
-int table[5][5]={{0,1,3,1,1},
+char *costs="# 2 2 9 0 0 9";
+int table[5][5]={{0,0,0,0,0},
  {0,0,0,0,0},
  {0,0,0,0,0},
 {0,0,0,0,0}};
