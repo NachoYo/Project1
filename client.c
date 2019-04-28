@@ -3,16 +3,23 @@
 #include <errno.h>
 #include <unistd.h>
 #include <string.h>
-
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#define TRUE   1  
+#define FALSE  0  
 
 char *buffer;
 char r_buffer[1024];
+char costs[]="#1 20000";
+int table[5][5]={{0,1,3,1,1},
+ {0,0,0,0,0},
+ {0,0,0,0,0},
+{0,0,0,0,0}};
 
 int main(int argc, char *argv[])
 {
+	int begin=FALSE;
 	int fd_sock, cli_sock;
 	int port_num, ret;
 	struct sockaddr_in addr;
@@ -54,6 +61,7 @@ int main(int argc, char *argv[])
 		printf("server says $ %s\n", r_buffer);
 		fflush(NULL);
 		
+		if(begin){
 		buffer = NULL;
 		printf("send$ ");
 		ret = getline(&buffer, &getline_len, stdin);
@@ -69,6 +77,12 @@ int main(int argc, char *argv[])
 		}
 		send(fd_sock, buffer, len, 0);
 		free(buffer);
+		}
+		else{
+		strcpy(buffer, costs);
+		send(fd_sock, buffer, len, 0);
+		begin=TRUE;
+		}
 	}
 	// bye-bye
 	close(fd_sock);
