@@ -191,7 +191,7 @@ int main(int argc , char *argv[])
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
                          printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
 			     
-			 printf("1 %s 2 ",buffer[1],buffer[2]);
+			 printf("1 %s 2 %s \n",buffer[1],buffer[2]);
 			 if(buffer[1]=="4")
 			 {
 				 	for(int i=0;i<5;i++)
