@@ -1,4 +1,4 @@
-#include <stdio.h>
+strcat(message2,number);#include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <unistd.h>
@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 		if (len < 0) break;
-		printf("server says $ %s\n", r_buffer);
+		printf("Computer No.1 $ %s\n", r_buffer);
 		fflush(NULL);
 		buffer = NULL;
 		printf("send$ ");
