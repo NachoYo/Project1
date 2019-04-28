@@ -12,7 +12,7 @@
 #define TRUE   1  
 #define FALSE  0  
 #define PORT 8888  
-//int comp[5]={TRUE,FALSE,FALSE,FALSE,FALSE};   
+
 int table[5][5]={{0,1,2,3,1},
  {0,0,0,0,0},
  {0,0,0,0,0},
