@@ -54,7 +54,7 @@ int main()
 		if(r_buffer[0]='+'){
 			for(int i=0;i<5;i++){
 				for(int j;j<5;j++){
-				table[i][j]=atoi(r_buffer[i*5+j+1]);
+				table[i][j]=atoi((char *)r_buffer[i*5+j+1]);
 				}
 			}
 			printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
