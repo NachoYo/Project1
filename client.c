@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 		printf("server says $ %s\n", r_buffer);
 		fflush(NULL);
 		
-		if(begin){
+		if(begin==1){
 		buffer = NULL;
 		printf("send$ ");
 		ret = getline(&buffer, &getline_len, stdin);
