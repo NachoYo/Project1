@@ -180,15 +180,9 @@ int main(int argc , char *argv[])
                           for(int i=0;i<5;i++)
 		               {
 		               table[atoi(buffer[1])][i]=atoi(buffer[i+3]);
-			          if(buffer[1]=='0'&&i==4)
 		               }
-                         printf("%d %d %d %d %d",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
+                         printf("TABLE %d %d %d %d %d",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
                      }
-                     
-                     /*else if(buffer[0]=='@')
-                     {
-                          
-                     }*/
                      else{
                      printf("Client Says: %s\n",buffer);
                     //set the string terminating NULL byte on the end  
