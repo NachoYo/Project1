@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 
 char *buffer;
+char message[1024];
 char r_buffer[1024];
 char *costs="# 3 3 8 0 0 7";
 char *identifier="2";
