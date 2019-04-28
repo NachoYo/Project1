@@ -55,7 +55,7 @@ int main()
 		if(r_buffer[0]='+'){
 			for(int i=0;i<5;i++){
 				for(int j;j<5;j++){
-				strcpy(auxiliar, c(char *)r_buffer[i*5+j+1]);
+				strcpy(auxiliar,(char *)r_buffer[i*5+j+1]);
 				table[i][j]=atoi(auxiliar);
 				}
 			}
@@ -98,7 +98,7 @@ int main()
 			memset(r_buffer, 0, sizeof(r_buffer));
 			len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 			if (len < 0) break;
-			printf("Computer 1 says: %s\n", r_buffer);
+			printf("server says: %s\n", r_buffer);
 			fflush(NULL);
 			buffer = NULL;
 		}
