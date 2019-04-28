@@ -176,7 +176,7 @@ int main(int argc , char *argv[])
                      
                 //Echo back the message that came in  
                 else 
-                {   
+                {   int cnt=0;
                      if(buffer[0]=='#')
                      {
                           for(int i=0;i<5;i++)
@@ -191,8 +191,14 @@ int main(int argc , char *argv[])
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
                          printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
 			     
+			 for(int i=0;i<5;i++)
+		               {
+				if(comp[i]==TRUE)
+					cnt++;
+		               }
+			     
 			 printf("Computer that sent it: %d \n",buffer[2]);
-			 if(buffer[2]=='4'/*&&cont==5*/)
+			 if(buffer[2]=='4'&&cnt==4)
 			 {
 				 printf("Entro al If\n");
 				 sleep(1);
