@@ -9,7 +9,7 @@
 
 char *buffer;
 char r_buffer[1024];
-char *costs="#123456 2 3 4 5 6 7";
+char *costs="# 2 2 0 0 0 0";
 int table[5][5]={{0,1,3,1,1},
  {0,0,0,0,0},
  {0,0,0,0,0},
