@@ -199,11 +199,14 @@ int main(int argc , char *argv[])
                     buffer[valread] = '\0';
                     send(sd , buffer , strlen(buffer) , 0 );   
                     memset(buffer, 0, sizeof(buffer));
-		    }
-			for(int i=0;i<5;i++)
+			     
+			    for(int i=0;i<sizeof(client_socket);i++)
 			{
 				send(client_socket[i] , message2 , strlen(buffer) , 0 ); 
-			}
+			} 
+			     
+		    }
+			
                 }   
             }   
         }   
