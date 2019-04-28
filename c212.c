@@ -54,7 +54,7 @@ int main()
 		printf("server says $ %s\n", r_buffer);
 		if(r_buffer[0]='+'){
 			for(int e=0;e<5;e++){
-				for(int j;j<5;j++){
+				for(int j=0;j<5;j++){
 					
 				sprintf(auxiliar,"%c",r_buffer[e*5+j+1]);
 				table[e][j]=atoi(auxiliar);
