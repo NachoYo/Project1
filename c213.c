@@ -10,12 +10,13 @@ strcat(message2,number);#include <stdio.h>
 char *buffer;
 char r_buffer[1024];
 char *costs="# 2 2 9 0 0 9";
+char *identifier="2";
 int table[5][5]={{0,0,0,0,0},
- {0,0,0,0,0},
+ {1,0,9,8,0},
  {0,0,0,0,0},
 {0,0,0,0,0}};
 
-int main(int argc, char *argv[])
+int main()
 {
 	int begin=0;
 	int fd_sock, cli_sock;
@@ -23,15 +24,8 @@ int main(int argc, char *argv[])
 	struct sockaddr_in addr;
 	int len;
 	size_t getline_len;
-
-	// arg parsing
-	/*if (argc != 3) {
-		printf("usage: cli srv_ip_addr port\n");
-		return 0;
-	}*/
-	//port_num = 8888;
-
-	// socket creation
+	
+	//Socket Creation
 	fd_sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (fd_sock == -1) {
 		perror("socket");
@@ -55,7 +49,7 @@ int main(int argc, char *argv[])
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 		if (len < 0) break;
-		printf("Computer No.1 $ %s\n", r_buffer);
+		printf("server says $ %s\n", r_buffer);
 		fflush(NULL);
 		buffer = NULL;
 		printf("send$ ");
@@ -70,21 +64,27 @@ int main(int argc, char *argv[])
 			free(buffer);
 			continue;
 		}
-		send(fd_sock, buffer, len, 0);
-		free(buffer);
-		}
 		
+		
+		strcat(message,identifier);
+		strcat(message,buffer);
+		buffer=(char *)message;
+			
+		printf("Lo que va a mandar: %s\n",message);
+		send(fd_sock, buffer, len, 0);
+		memset(message, 0, sizeof(message));
+		}
 		else{
 			sleep(1);
 			len = strlen(costs);
 			send(fd_sock, costs, len, 0);
 			begin=1;	
-			printf("Sending the costs\n");
+			printf("Sending the cost\n");
 			sleep(1);
 			memset(r_buffer, 0, sizeof(r_buffer));
 			len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 			if (len < 0) break;
-			printf("Computer 1 says $ %s\n", r_buffer);
+			printf("server says: %s\n", r_buffer);
 			fflush(NULL);
 			buffer = NULL;
 		}
@@ -93,3 +93,4 @@ int main(int argc, char *argv[])
 	close(fd_sock);
 	return 0;
 }
+
