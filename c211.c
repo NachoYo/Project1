@@ -19,14 +19,15 @@ int table[5][5]={{0,1,3,1,1},
 char buffer[1024];
 char *input;
 char r_buffer[1024];
-char message[];
+char *message;
 
 pthread_t srv_tids[100];
 pthread_t cli_tids[100];
 
 pthread_t servThread;
-int srv_thds=0,cli_thds=0;
+int srv_thds=0,cli_thds=1;
 int pid;
+int cli_select;
 //static void * handle(void *);
 char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
 
@@ -51,13 +52,15 @@ int main()
 
 	port_num = 56001;
 
+	printf("Press enter if all the computers are online");
+	getline(&input,&getline_len,stdin);
+	
 	// socket creation
 	srv_sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (srv_sock == -1) {
 		perror("Server socket CREATE fail!!");
 		return 0;
 	}
-
 	// addr binding
 	memset(&addr, 0, sizeof(addr));
 	addr.sin_family = AF_INET;
@@ -71,12 +74,10 @@ int main()
 		return 0;
 	}
 	pthread_create(&servThread, NULL, srv_listen, NULL);
-
-	printf("Press enter if all the computers are online");
-	getline(&input,&getline_len,stdin);
+	
 	for(int i=1;i<5;i++)
 	{
-		strcpy(message, costs);
+		//strcpy(message, costs);
 		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[i]);
 		cli_thds++;
 	}
@@ -90,13 +91,11 @@ int main()
 		{
 			return 0;
 		}
+		cli_select=atoi(input);
 		printf("\nWrite the message you want to send");
 		getline(&message,&getline_len,stdin);
-		
-		pthread_create(&cli_thds[cli_tids], NULL, client, (void *)addrs[atoi(input)-1]);
-		cli_thds++;
 	}
-
+	
 	return 0;
 }
 
@@ -148,7 +147,9 @@ static void * handle(void * arg)
 		pthread_exit(&ret);
 	}
 	/* read from client host:port */
-
+	while(1)
+	{
+		
 	int len = 0;
 	printf("A computer has beed connected");
 	memset(recv_buffer, 0, sizeof(recv_buffer));
@@ -161,6 +162,8 @@ static void * handle(void * arg)
 	ret = send(cli_sockfd, send_buffer, len, 0);
 	printf("----\n");
 	fflush(NULL);
+	}
+	/*
 	if(recv_buffer[0]=='#')
 	{
 		for(int i=0;i<5;i++)
@@ -168,6 +171,7 @@ static void * handle(void * arg)
 		table[atoi((char *)recv_buffer[1])][i]=atoi((char *)recv_buffer[i+3]);
 		}
 	}
+	*/
 	close(cli_sockfd);
 	ret = 0;
 	pthread_exit(&ret);
@@ -175,6 +179,7 @@ static void * handle(void * arg)
 
 void * client(void * arg)
 {
+	int cli_number=cli_thds;
 	char *ipaddress = (char *)(arg);
 	int fd_sock;
 	struct sockaddr_in addr_cli;
@@ -188,18 +193,28 @@ void * client(void * arg)
 	}
 
 	// addr binding, and connect
-	memset(&addr_cli, 0, sizeof(addr_cli));
-	addr_cli.sin_family = AF_INET;
-	addr_cli.sin_port = htons (port_num);
-	inet_pton(AF_INET, ipaddress, &addr_cli.sin_addr);
-
-	ret = connect(fd_sock, (struct sockaddr *)&addr_cli, sizeof(addr_cli));
-	if (ret == -1) {
-		perror("connect");
-		close(fd_sock);
-		return;
-	}
-	send(fd_sock, (void *)message, strlen(message), 0);
+while (1) {
+	if(cli_select==cli_number)
+		buffer = NULL;
+		printf("sending to computer number %d: ",cli_number);
+		if (ret == -1) { // EOF
+			perror("getline");
+			close(fd_sock);
+			break;
+		}
+		len = strlen(buffer);
+		if (len == 0) {
+			free(buffer);
+			continue;
+		}
+		send(fd_sock, message, len, 0);
+		free(buffer);
+		memset(r_buffer, 0, sizeof(r_buffer));
+		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
+		if (len < 0) break;
+		printf("server says $ %s\n", r_buffer);
+		fflush(NULL);
+}
 	close(fd_sock);
 	pthread_exit(&ret);
 	return;
