@@ -201,7 +201,9 @@ int main(int argc , char *argv[])
 					 sleep(1);
 					 message2="+0123110980290093800710970";
 					send(client_socket[i],message2,strlen(message2),0); 
+					 printf("Mandado a la pc:%d\n",i);
 				  }
+				 printf("Salio del For\n");
 				 /*
 				 
 				 	for(int i=0;i<5;i++)
