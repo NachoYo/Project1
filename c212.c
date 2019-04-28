@@ -8,12 +8,21 @@
 #include <arpa/inet.h>
 
 char *buffer;
+char *message="";
 char r_buffer[1024];
 char *costs="# 1 1 0 9 8 0";
 int table[5][5]={{0,0,0,0,0},
  {1,0,9,8,0},
  {0,0,0,0,0},
 {0,0,0,0,0}};
+
+void prepMess(){
+	message[0]='2';
+	for(int i=0;i<sizeof(buffer)-1;i++)
+	{
+		message[i+1]=buffer[i];
+	}
+}
 
 int main()
 {
@@ -23,8 +32,6 @@ int main()
 	struct sockaddr_in addr;
 	int len;
 	size_t getline_len;
-	char *message="";
-	char *identifier="2";
 	// arg parsing
 	/*if (argc != 3) {
 		printf("usage: cli srv_ip_addr port\n");
@@ -72,11 +79,11 @@ int main()
 			free(buffer);
 			continue;
 		}
-			sprintf(message,"2%s",buffer);
+			prepMess();
 			printf("Lo que va a mandar: %s\n",message);
 			
-		send(fd_sock, message, len, 0);
-		free(buffer);
+		send(fd_sock, buffer, len, 0);
+		free(message);
 		}
 		
 		else{
