@@ -12,6 +12,7 @@ char r_buffer[1024];
 char message[1024];
 char *costs="# 1 1 0 9 8 0";
 char *identifier="2";
+char auxiliar[1024];
 int table[5][5]={{0,0,0,0,0},
  {1,0,9,8,0},
  {0,0,0,0,0},
@@ -54,7 +55,8 @@ int main()
 		if(r_buffer[0]='+'){
 			for(int i=0;i<5;i++){
 				for(int j;j<5;j++){
-				table[i][j]=atoi((char *)r_buffer[i*5+j+1]);
+				strcpy(auxiliar, c(char *)r_buffer[i*5+j+1]);
+				table[i][j]=atoi(auxiliar);
 				}
 			}
 			printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
