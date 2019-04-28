@@ -195,6 +195,7 @@ int main(int argc , char *argv[])
 			 if(buffer[2]=='4')
 			 {
 				 printf("Entro al If\n");
+				 sleep(1);
 				 	for(int i=0;i<5;i++)
 					{
 						for(int j=0;j<5;j++)
@@ -202,6 +203,7 @@ int main(int argc , char *argv[])
 						message2+=table[i][j];
 						}
 					}
+				 
 				 printf("Tabla concatenada: %s\n",message2);
 				 	for(int i=0;i<sizeof(client_socket);i++)
 					{
