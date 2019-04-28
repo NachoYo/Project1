@@ -77,6 +77,7 @@ int main(int argc, char *argv[])
 		else{
 		sprintf(buffer,"%s",costs);
 		printf("Antes de mandar\n");
+		len = strlen(buffer);
 		send(fd_sock, buffer, len, 0);
 		begin=1;	
 		printf("Mandado\n");
