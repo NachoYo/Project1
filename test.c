@@ -202,7 +202,7 @@ int main(int argc , char *argv[])
 						message2+=table[i][j];
 						}
 					}
-				 printf("Antes del for\n");
+				 printf("Tabla concatenada: %s\n",message2);
 				 	for(int i=0;i<sizeof(client_socket);i++)
 					{
 					send(client_socket[i] , message2 , strlen(message2) , 0 ); 
