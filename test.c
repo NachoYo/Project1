@@ -35,7 +35,7 @@ int main(int argc , char *argv[])
          
     //a message  
     char *message = "Welcome to the server\r\n";   
-     char *message2 = "Prueba de mensage"; 
+     char *message2 = "*";
 	
     //initialise all client_socket[] to 0 so not checked  
     for (i = 0; i < max_clients; i++)   
@@ -155,10 +155,6 @@ int main(int argc , char *argv[])
         //else its some IO operation on some other socket 
         for (i = 0; i < max_clients; i++)   
         {   
-	for(int i=0;i<sizeof(client_socket);i++)
-	{
-		send(client_socket[i] , message2 , strlen(message2) , 0 ); 
-	}
             sd = client_socket[i];   
                  
             if (FD_ISSET( sd , &readfds))   
@@ -189,12 +185,26 @@ int main(int argc , char *argv[])
 		               table[atoi(&buffer[1])][i]=atoi(&buffer[(i+2)*2]);
 				  printf("%d\n",atoi(&buffer[i+2]));
 		               }
-			 printf("TABLE %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
-			 printf("TABLE %d %d %d %d %d \n",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
-			 printf("TABLE %d %d %d %d %d \n",table[2][0],table[2][1],table[2][2],table[2][3],table[2][4]);
-			 printf("TABLE %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
-                         printf("TABLE %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
+			 printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
+			 printf("TABLE[2] %d %d %d %d %d \n",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
+			 printf("TABLE[3] %d %d %d %d %d \n",table[2][0],table[2][1],table[2][2],table[2][3],table[2][4]);
+			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
+                         printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
 			     memset(buffer, 0, sizeof(buffer));
+			 if(buffer[1]=="4")
+			 {
+				 	for(int i=0;i<5;i++)
+					{
+						for(int j=0;j<5,i++)
+						{
+						menssage2+=table[i][j];
+						}
+					}
+				 	for(int i=0;i<sizeof(client_socket);i++)
+					{
+					send(client_socket[i] , message2 , strlen(message2) , 0 ); 
+					}
+			 }
                      }
                      else{
                      printf("Client Says: %s\n",buffer);
