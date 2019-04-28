@@ -76,6 +76,8 @@ int main()
 		strcat(message,identifier);
 		strcat(message,buffer);
 			
+			printf("SLo que va a mandar: %s\n",message);
+			
 		send(fd_sock, message, len, 0);
 		free(buffer);
 		}
