@@ -54,13 +54,13 @@ printf("PUTOS TODOS 121");
 	while (1) {
 		
 		printf("PUTOS TODOS INICIAL");
+
+		if(begin){
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 		if (len < 0) break;
 		printf("server says $ %s\n", r_buffer);
 		fflush(NULL);
-		printf("PUTOS TODOS 111");
-		if(begin){
 		buffer = NULL;
 		printf("send$ ");
 		ret = getline(&buffer, &getline_len, stdin);
@@ -83,7 +83,7 @@ printf("PUTOS TODOS 121");
 		printf("PUTOS TODOS 1");
 		//strcpy(buffer, costs);
 		//send(fd_sock, buffer, len, 0);
-			printf("PUTOS TODOS 2");
+		printf("PUTOS TODOS 2");
 		begin=1;
 			
 		}
