@@ -13,7 +13,7 @@
 #define FALSE  0  
 #define PORT 8888  
      
-int table[5][5]={{0,1,3,1,1},
+int table[5][5]={{9,9,9,9,9},
  {0,0,0,0,0},
  {0,0,0,0,0},
 {0,0,0,0,0}};
@@ -180,8 +180,9 @@ int main(int argc , char *argv[])
                           for(int i=0;i<5;i++)
 		               {
 		               table[atoi(&buffer[1])][i]=atoi(&buffer[i+2]);
+				  printf("%s\n",buffer[i+2]);
 		               }
-                         printf("TABLE %d %d %d %d %d",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
+                         printf("TABLE %d %d %d %d %d \n",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
 			     memset(buffer, 0, sizeof(buffer));
                      }
                      else{
