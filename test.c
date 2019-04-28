@@ -175,8 +175,9 @@ int main(int argc , char *argv[])
                      printf("Client Says: %s\n",buffer);
                     //set the string terminating NULL byte on the end  
                     //of the data read  
-                    buffer[valread] = '\0';   
+                    buffer[valread] = '\0';
                     send(sd , buffer , strlen(buffer) , 0 );   
+                     buffer="";
                 }   
             }   
         }   
