@@ -55,7 +55,7 @@ int main()
 		if(r_buffer[0]='+'){
 			for(int i=0;i<5;i++){
 				for(int j;j<5;j++){
-				sprintf(axiliar,"%c",r_buffer[i*5+j+1]);
+				sprintf(auxiliar,"%c",r_buffer[i*5+j+1]);
 				table[i][j]=atoi(auxiliar);
 				}
 			}
