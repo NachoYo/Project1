@@ -173,7 +173,7 @@ int main(int argc , char *argv[])
                 else 
                 {   
                      printf("Client Says: %s\n",buffer);
-                     printf("Client Says: %c\n",buffer[0]);
+                     printf("Caracter1: %c\nCaracter2: %c\n",buffer[0],buffer[1]);
                     //set the string terminating NULL byte on the end  
                     //of the data read  
                     buffer[valread] = '\0';
