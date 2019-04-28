@@ -55,13 +55,14 @@ int main(int argc, char *argv[])
 
 	while (1) {
 		
+		printf("PUTOS TODOS INICIAL");
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 		if (len < 0) break;
 		printf("server says $ %s\n", r_buffer);
 		fflush(NULL);
 		
-		if(begin==1){
+		if(begin){
 		buffer = NULL;
 		printf("send$ ");
 		ret = getline(&buffer, &getline_len, stdin);
