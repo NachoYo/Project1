@@ -80,7 +80,7 @@ int main()
 			
 		printf("Lo que va a mandar: %s\n",message);
 		send(fd_sock, buffer, len, 0);
-		free(message);
+		message="";
 		}
 		
 		else{
