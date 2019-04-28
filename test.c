@@ -200,7 +200,7 @@ int main(int argc , char *argv[])
 					{
 						for(int j=0;j<5;j++)
 						{
-						message2+=table[i][j];
+						strcat(message2,table[i][j]);
 						}
 					}
 				 
