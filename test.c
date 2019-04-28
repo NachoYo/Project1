@@ -20,6 +20,7 @@ int table[5][5]={{0,1,3,1,1},
 
 int main(int argc , char *argv[])   
 {   
+	
     int opt = TRUE;   
     int master_socket , addrlen , new_socket , client_socket[30] ,  
           max_clients = 30 , activity, i , valread , sd;   
@@ -180,8 +181,6 @@ int main(int argc , char *argv[])
 		               {
 		               table[atoi(buffer[1])][i]=atoi(buffer[i+3]);
 			          if(buffer[1]=='0'&&i==4)
-				     begin=true;
-			          printf("Dentro del For");
 		               }
                          printf("%d %d %d %d %d",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
                      }
