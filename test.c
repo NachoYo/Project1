@@ -175,22 +175,22 @@ int main(int argc , char *argv[])
                 //Echo back the message that came in  
                 else 
                 {   
-                     /*if(buffer[0]=='#')
+                     if(buffer[0]=='#')
                      {
                           for(int i=0;i<5;i++)
 		               {
 		               table[atoi(buffer[1])][i]=atoi(buffer[i+3]);
 		               }
                          printf("TABLE %d %d %d %d %d",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
-                     }*/
-                     
+                     }
+                     else{
                      printf("Client Says: %s\n",buffer);
                     //set the string terminating NULL byte on the end  
                     //of the data read  
                     buffer[valread] = '\0';
                     send(sd , buffer , strlen(buffer) , 0 );   
                     memset(buffer, 0, sizeof(buffer));
-                     
+		    }
                 }   
             }   
         }   
