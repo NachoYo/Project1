@@ -82,8 +82,8 @@ int main(int argc, char *argv[])
 		else{
 			
 		printf("PUTOS TODOS 1");
-		strcpy(buffer, costs);
-		send(fd_sock, buffer, len, 0);
+		//strcpy(buffer, costs);
+		//send(fd_sock, buffer, len, 0);
 			printf("PUTOS TODOS 2");
 		begin=TRUE;
 			
