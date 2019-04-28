@@ -200,8 +200,8 @@ int main(int argc , char *argv[])
 					{
 						for(int j=0;j<5;j++)
 						{
-						itoa(table[i][j],number,10);
-						strcat(message2,number);
+						sprintf(message2,"%s%d",message2,table[i][j]);
+						//strcat(message2,number);
 						}
 					}
 				 
