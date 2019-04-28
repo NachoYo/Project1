@@ -172,6 +172,7 @@ int main(int argc , char *argv[])
                 //Echo back the message that came in  
                 else 
                 {   
+                     printf("Client Says: %s\n",buffer);
                     //set the string terminating NULL byte on the end  
                     //of the data read  
                     buffer[valread] = '\0';   
