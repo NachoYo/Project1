@@ -1,6 +1,3 @@
-
-//Example code: A simple server side code, which echos back the received message. 
-//Handle multiple socket connections with select and fd_set on Linux  
 #include <stdio.h>  
 #include <string.h>   //strlen  
 #include <stdlib.h>  
@@ -16,13 +13,18 @@
 #define FALSE  0  
 #define PORT 8888  
      
+int table[5][5]={{0,1,3,1,1},
+ {0,0,0,0,0},
+ {0,0,0,0,0},
+{0,0,0,0,0}};
+
 int main(int argc , char *argv[])   
 {   
     int opt = TRUE;   
     int master_socket , addrlen , new_socket , client_socket[30] ,  
           max_clients = 30 , activity, i , valread , sd;   
     int max_sd;   
-    struct sockaddr_in address;   
+    struct sockaddr_in address;
          
     char buffer[1025];  //data buffer of 1K  
          
@@ -172,13 +174,30 @@ int main(int argc , char *argv[])
                 //Echo back the message that came in  
                 else 
                 {   
+                     if(buffer[0]=='#')
+                     {
+                          for(int i=0;i<5;i++)
+		               {
+		               table[atoi(buffer[1])][i]=atoi(buffer[i+3]);
+			          if(buffer[1]=='0'&&i==4)
+				     begin=true;
+			          printf("Dentro del For");
+		               }
+                         printf("%d %d %d %d %d",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
+                     }
+                     
+                     /*else if(buffer[0]=='@')
+                     {
+                          
+                     }*/
+                     else{
                      printf("Client Says: %s\n",buffer);
-                     printf("Caracter1: %c\nCaracter2: %c\n",buffer[0],buffer[1]);
                     //set the string terminating NULL byte on the end  
                     //of the data read  
                     buffer[valread] = '\0';
                     send(sd , buffer , strlen(buffer) , 0 );   
                     memset(buffer, 0, sizeof(buffer));
+                     }
                 }   
             }   
         }   
