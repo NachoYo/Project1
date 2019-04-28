@@ -11,7 +11,7 @@ char *buffer;
 char r_buffer[1024];
 char message[1024];
 char *costs="# 1 1 0 9 8 0";
-char *identifier="2;
+char *identifier="2";
 int table[5][5]={{0,0,0,0,0},
  {1,0,9,8,0},
  {0,0,0,0,0},
