@@ -6,8 +6,6 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
-#define TRUE   1  
-#define FALSE  0  
 
 char *buffer;
 char r_buffer[1024];
@@ -19,7 +17,7 @@ int table[5][5]={{0,1,3,1,1},
 
 int main(int argc, char *argv[])
 {
-	int begin=FALSE;
+	int begin=0;
 	int fd_sock, cli_sock;
 	int port_num, ret;
 	struct sockaddr_in addr;
@@ -86,7 +84,7 @@ printf("PUTOS TODOS 121");
 		//strcpy(buffer, costs);
 		//send(fd_sock, buffer, len, 0);
 			printf("PUTOS TODOS 2");
-		begin=TRUE;
+		begin=1;
 			
 		}
 	}
