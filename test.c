@@ -223,7 +223,12 @@ int main(int argc , char *argv[])
 			     memset(buffer, 0, sizeof(buffer));
                      }
                      else{
-                     printf("Client Says: %s\n",buffer);
+                     printf("Computer no.%c Says: ",buffer[0]);
+		     for(int i=1;i<sizeof(buffer);i++)
+			    {
+				printf("%c",buff[i]);
+			    }
+			    printf("\n");
                     //set the string terminating NULL byte on the end  
                     //of the data read  
                     buffer[valread] = '\0';
