@@ -19,17 +19,17 @@ int main(int argc, char *argv[])
 {
 	int begin=0;
 	int fd_sock, cli_sock;
-	int port_num, ret;
+	int port_num=8888, ret;
 	struct sockaddr_in addr;
 	int len;
 	size_t getline_len;
 
 	// arg parsing
-	/*if (argc != 3) {
+	if (argc != 3) {
 		printf("usage: cli srv_ip_addr port\n");
 		return 0;
-	}*/
-	port_num = 8888;
+	}
+	port_num = atoi(argv[2]);
 
 	// socket creation
 	fd_sock = socket(AF_INET, SOCK_STREAM, 0);
