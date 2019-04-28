@@ -35,7 +35,7 @@ int main(int argc , char *argv[])
          
     //a message  
     char *message = "Welcome to the server\r\n";   
-     char *message2 = "Ahi te va la tabla: TABLA XD";
+     char *message2 = "The cost matrix is:\n";
 	
     //initialise all client_socket[] to 0 so not checked  
     for (i = 0; i < max_clients; i++)   
@@ -197,9 +197,12 @@ int main(int argc , char *argv[])
 				 printf("Entro al If\n");
 				 sleep(1);
 				 for(int i=0;i<sizeof(client_socket);i++)
-					{
-					send(client_socket[i] , message2 , strlen(message2) , 0 ); 
-					}
+				 {
+					send(client_socket[i],message2,strlen(message2),0); 
+					 sleep(1);
+					 message2="+0123110980290093800710970";
+					send(client_socket[i],message2,strlen(message2),0); 
+				  }
 				 /*
 				 
 				 	for(int i=0;i<5;i++)
