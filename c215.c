@@ -15,11 +15,11 @@ int table[5][5]={{0,0,0,0,0},
  {0,0,0,0,0},
 {1,0,9,7,0}};
 
-int main(int argc, char *argv[])
+int main()
 {
 	int begin=0;
 	int fd_sock, cli_sock;
-	int port_num, ret;
+	int port_num=8888, ret;
 	struct sockaddr_in addr;
 	int len;
 	size_t getline_len;
@@ -29,8 +29,6 @@ int main(int argc, char *argv[])
 		printf("usage: cli srv_ip_addr port\n");
 		return 0;
 	}*/
-	port_num = 8888;
-
 	// socket creation
 	fd_sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (fd_sock == -1) {
