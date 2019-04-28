@@ -1,4 +1,4 @@
-#include <stdio.h> //hola_xD
+#include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <unistd.h>
