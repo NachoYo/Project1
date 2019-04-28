@@ -226,7 +226,7 @@ int main(int argc , char *argv[])
                      printf("Computer no.%c Says: ",buffer[0]);
 		     for(int i=1;i<sizeof(buffer);i++)
 			    {
-				printf("%c",buff[i]);
+				printf("%c",buffer[i]);
 			    }
 			    printf("\n");
                     //set the string terminating NULL byte on the end  
