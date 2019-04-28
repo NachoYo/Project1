@@ -15,7 +15,7 @@ int table[5][5]={{0,0,0,0,0},
  {0,0,0,0,0},
 {0,0,0,0,0}};
 
-int main(int argc, char *argv[])
+int main()
 {
 	int begin=0;
 	int fd_sock, cli_sock;
