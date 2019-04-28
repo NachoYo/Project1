@@ -184,6 +184,8 @@ int main(int argc , char *argv[])
 		               {
 		               table[atoi(&buffer[1])][i]=atoi(&buffer[(i+2)*2]);
 				  printf("%d\n",atoi(&buffer[i+2]));
+				  comp[atoi(&buffer[1])]=TRUE;
+					  
 		               }
 			 printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
 			 printf("TABLE[2] %d %d %d %d %d \n",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
