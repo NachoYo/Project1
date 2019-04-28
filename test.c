@@ -177,7 +177,7 @@ int main(int argc , char *argv[])
                     //of the data read  
                     buffer[valread] = '\0';
                     send(sd , buffer , strlen(buffer) , 0 );   
-                     strcpy(buffer, " ");
+                    memset(buffer, 0, sizeof(buffer));
                 }   
             }   
         }   
