@@ -25,11 +25,12 @@ int main()
 	size_t getline_len;
 
 	// arg parsing
-	if (argc != 3) {
+	/*if (argc != 3) {
 		printf("usage: cli srv_ip_addr port\n");
 		return 0;
-	}
-	port_num = atoi(argv[2]);
+	}*/
+	//port_num = atoi(argv[2]);
+	
 
 	// socket creation
 	fd_sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -42,7 +43,7 @@ int main()
 	memset(&addr, 0, sizeof(addr));
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons (port_num);
-	inet_pton(AF_INET, argv[1], &addr.sin_addr);
+	inet_pton(AF_INET, "220.149.244.211", &addr.sin_addr);
 
 	ret = connect(fd_sock, (struct sockaddr *)&addr, sizeof(addr));
 	if (ret == -1) {
