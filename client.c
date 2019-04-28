@@ -78,10 +78,15 @@ int main(int argc, char *argv[])
 		send(fd_sock, buffer, len, 0);
 		free(buffer);
 		}
+		
 		else{
+			
+		printf("PUTOS TODOS 1");
 		strcpy(buffer, costs);
 		send(fd_sock, buffer, len, 0);
+			printf("PUTOS TODOS 2");
 		begin=TRUE;
+			
 		}
 	}
 	// bye-bye
