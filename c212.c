@@ -16,14 +16,6 @@ int table[5][5]={{0,0,0,0,0},
  {0,0,0,0,0},
 {0,0,0,0,0}};
 
-void prepMess(){
-	message[0]='2';
-	for(int i=0;i<sizeof(buffer)-1;i++)
-	{
-		message[i+1]=buffer[i];
-	}
-}
-
 int main()
 {
 	int begin=0;
@@ -79,10 +71,9 @@ int main()
 			free(buffer);
 			continue;
 		}
-			prepMess();
-			printf("Lo que va a mandar: %s\n",message);
+			printf("Lo que va a mandar: 2+%s\n",message);
 			
-		send(fd_sock, buffer, len, 0);
+		send(fd_sock, "2"+buffer, len, 0);
 		free(message);
 		}
 		
