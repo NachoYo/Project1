@@ -21,7 +21,7 @@ char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.14
 
 int main(int argc , char *argv[])   
 {   
-	
+    char number[20];
     int opt = TRUE;   
     int master_socket , addrlen , new_socket , client_socket[30] ,  
           max_clients = 30 , activity, i , valread , sd;   
@@ -200,7 +200,8 @@ int main(int argc , char *argv[])
 					{
 						for(int j=0;j<5;j++)
 						{
-						strcat(message2,table[i][j]);
+						itoa(table[i][j],number,10);
+						strcat(message2,number);
 						}
 					}
 				 
