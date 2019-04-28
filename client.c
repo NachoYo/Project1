@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 		close(fd_sock);
 		return 0;
 	}
-
+printf("PUTOS TODOS 121");
 	while (1) {
 		
 		printf("PUTOS TODOS INICIAL");
@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 		if (len < 0) break;
 		printf("server says $ %s\n", r_buffer);
 		fflush(NULL);
-		
+		printf("PUTOS TODOS 111");
 		if(begin){
 		buffer = NULL;
 		printf("send$ ");
