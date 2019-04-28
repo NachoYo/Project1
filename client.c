@@ -75,12 +75,11 @@ int main(int argc, char *argv[])
 		}
 		
 		else{
-		
-		printf("Antes de mandar\n");
+		sleep(1);
 		len = strlen(costs);
 		send(fd_sock, costs, len, 0);
 		begin=1;	
-		printf("Mandado\n");
+		printf("Mandado el costo inicial\n");
 		}
 	}
 	// bye-bye
