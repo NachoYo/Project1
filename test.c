@@ -35,7 +35,8 @@ int main(int argc , char *argv[])
          
     //a message  
     char *message = "Welcome to the server\r\n";   
-     
+     char *message2 = "Prueba de mensage"; 
+	
     //initialise all client_socket[] to 0 so not checked  
     for (i = 0; i < max_clients; i++)   
     {   
@@ -199,6 +200,10 @@ int main(int argc , char *argv[])
                     send(sd , buffer , strlen(buffer) , 0 );   
                     memset(buffer, 0, sizeof(buffer));
 		    }
+			for(int i=0;i<5;i++)
+			{
+				send(client_socket[i] , message2 , strlen(buffer) , 0 ); 
+			}
                 }   
             }   
         }   
