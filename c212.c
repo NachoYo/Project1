@@ -81,6 +81,13 @@ int main()
 		send(fd_sock, costs, len, 0);
 		begin=1;	
 		printf("Mandado el costo inicial\n");
+		sleep(1);
+		memset(r_buffer, 0, sizeof(r_buffer));
+		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
+		if (len < 0) break;
+		printf("server says $ %s\n", r_buffer);
+		fflush(NULL);
+		buffer = NULL;
 		}
 	}
 	// bye-bye
