@@ -23,7 +23,8 @@ int main()
 	struct sockaddr_in addr;
 	int len;
 	size_t getline_len;
-
+	char *message="";
+	char *identifier="2";
 	// arg parsing
 	/*if (argc != 3) {
 		printf("usage: cli srv_ip_addr port\n");
@@ -71,7 +72,11 @@ int main()
 			free(buffer);
 			continue;
 		}
-		send(fd_sock, buffer, len, 0);
+			
+		strcat(message,identifier);
+		strcat(message,buffer);
+			
+		send(fd_sock, message, len, 0);
 		free(buffer);
 		}
 		
@@ -85,7 +90,7 @@ int main()
 			memset(r_buffer, 0, sizeof(r_buffer));
 			len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 			if (len < 0) break;
-			printf("server says $ %s\n", r_buffer);
+			printf("server says: %s\n", r_buffer);
 			fflush(NULL);
 			buffer = NULL;
 		}
