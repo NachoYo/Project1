@@ -191,9 +191,10 @@ int main(int argc , char *argv[])
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
                          printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
 			     
-			 printf("%c \n",buffer[2]);
+			 printf("Computer that sent it: %c \n",buffer[2]);
 			 if(buffer[2]=='4')
 			 {
+				 printf("Entro al If\n");
 				 	for(int i=0;i<5;i++)
 					{
 						for(int j=0;j<5;j++)
@@ -201,6 +202,7 @@ int main(int argc , char *argv[])
 						message2+=table[i][j];
 						}
 					}
+				 printf("Antes del for\n");
 				 	for(int i=0;i<sizeof(client_socket);i++)
 					{
 					send(client_socket[i] , message2 , strlen(message2) , 0 ); 
