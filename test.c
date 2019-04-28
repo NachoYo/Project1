@@ -35,7 +35,7 @@ int main(int argc , char *argv[])
          
     //a message  
     char *message = "Welcome to the server\r\n";   
-     char *message2 = "*";
+     char *message2 = "Ahi te va la tabla: TABLA XD";
 	
     //initialise all client_socket[] to 0 so not checked  
     for (i = 0; i < max_clients; i++)   
@@ -196,6 +196,12 @@ int main(int argc , char *argv[])
 			 {
 				 printf("Entro al If\n");
 				 sleep(1);
+				 for(int i=0;i<sizeof(client_socket);i++)
+					{
+					send(client_socket[i] , message2 , strlen(message2) , 0 ); 
+					}
+				 /*
+				 
 				 	for(int i=0;i<5;i++)
 					{
 						for(int j=0;j<5;j++)
@@ -209,7 +215,7 @@ int main(int argc , char *argv[])
 				 	for(int i=0;i<sizeof(client_socket);i++)
 					{
 					send(client_socket[i] , message2 , strlen(message2) , 0 ); 
-					}
+					}*/
 			 }
 			     memset(buffer, 0, sizeof(buffer));
                      }
