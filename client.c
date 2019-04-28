@@ -47,6 +47,14 @@ int main(int argc, char *argv[])
 	}
 
 	while (1) {
+		
+		
+		memset(r_buffer, 0, sizeof(r_buffer));
+		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
+		if (len < 0) break;
+		printf("server says $ %s\n", r_buffer);
+		fflush(NULL);
+		
 		buffer = NULL;
 		printf("send$ ");
 		ret = getline(&buffer, &getline_len, stdin);
@@ -62,12 +70,6 @@ int main(int argc, char *argv[])
 		}
 		send(fd_sock, buffer, len, 0);
 		free(buffer);
-
-		memset(r_buffer, 0, sizeof(r_buffer));
-		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
-		if (len < 0) break;
-		printf("server says $ %s\n", r_buffer);
-		fflush(NULL);
 	}
 	// bye-bye
 	close(fd_sock);
