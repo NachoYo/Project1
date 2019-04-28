@@ -50,11 +50,7 @@ int main(int argc, char *argv[])
 		close(fd_sock);
 		return 0;
 	}
-printf("PUTOS TODOS 121");
 	while (1) {
-		
-		printf("PUTOS TODOS INICIAL");
-
 		if(begin){
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
@@ -79,13 +75,9 @@ printf("PUTOS TODOS 121");
 		}
 		
 		else{
-			
-		printf("PUTOS TODOS 1");
-		//strcpy(buffer, costs);
-		//send(fd_sock, buffer, len, 0);
-		printf("PUTOS TODOS 2");
-		begin=1;
-			
+		strcpy(buffer, costs);
+		send(fd_sock, buffer, len, 0);
+		begin=1;	
 		}
 	}
 	// bye-bye
