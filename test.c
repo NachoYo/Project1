@@ -26,8 +26,8 @@ int main(int argc , char *argv[])
     int master_socket , addrlen , new_socket , client_socket[30] ,  
           max_clients = 30 , activity, i , valread , sd;   
     int max_sd;   
-    struct sockaddr_in address;
-         
+    struct sockaddr_in address[30];
+    int add_index=0;
     char buffer[1025];  //data buffer of 1K  
          
     //set of socket descriptors  
@@ -60,12 +60,12 @@ int main(int argc , char *argv[])
     }   
      
     //type of socket created  
-    address.sin_family = AF_INET;   
-    address.sin_addr.s_addr = INADDR_ANY;   
-    address.sin_port = htons( PORT );   
+    address[add_index].sin_family = AF_INET;   
+    address[add_index].sin_addr.s_addr = INADDR_ANY;   
+    address[add_index].sin_port = htons( PORT );   
          
     //bind the socket to localhost port 8888  
-    if (bind(master_socket, (struct sockaddr *)&address, sizeof(address))<0)   
+    if (bind(master_socket, (struct sockaddr *)&address[add_index], sizeof(address))<0)   
     {   
         perror("bind failed");   
         exit(EXIT_FAILURE);   
@@ -128,7 +128,7 @@ int main(int argc , char *argv[])
             }   
              
             //inform user of socket number - used in send and receive commands  
-            printf("New connection , socket fd is %d , ip is : %s , port : %d\n", new_socket , inet_ntoa(address.sin_addr) , ntohs(address.sin_port));   
+            printf("New connection , socket fd is %d , ip is : %s , port : %d\n", new_socket , inet_ntoa(address[add_index].sin_addr) , ntohs(address[add_index].sin_port));   
            
             //send new connection greeting message  
             if( send(new_socket, message, strlen(message), 0) != strlen(message) )   
@@ -202,7 +202,7 @@ int main(int argc , char *argv[])
 			     
 			    for(int i=0;i<sizeof(client_socket);i++)
 			{
-				send(client_socket[i] , message2 , strlen(buffer) , 0 ); 
+				send(client_socket[i] , message2 , strlen(message2) , 0 ); 
 			} 
 			     
 		    }
