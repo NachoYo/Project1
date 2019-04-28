@@ -9,7 +9,7 @@
 
 char *buffer;
 char r_buffer[1024];
-char costs[]="#1 20000";
+char *costs="#1 20000";
 int table[5][5]={{0,1,3,1,1},
  {0,0,0,0,0},
  {0,0,0,0,0},
@@ -77,7 +77,6 @@ int main(int argc, char *argv[])
 		else{
 		sprintf(buffer,"%s",costs);
 		printf("Antes de mandar\n");
-		len = strlen(buffer);
 		send(fd_sock, buffer, len, 0);
 		begin=1;	
 		printf("Mandado\n");
