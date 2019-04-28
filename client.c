@@ -48,7 +48,6 @@ int main(int argc, char *argv[])
 
 	while (1) {
 		
-		
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 		if (len < 0) break;
