@@ -72,11 +72,8 @@ int main()
 			free(buffer);
 			continue;
 		}
-			
-		strcat(message,identifier);
-		strcat(message,buffer);
-			
-			printf("SLo que va a mandar: %s\n",message);
+			sprintf(message,"2%s",buffer);
+			printf("Lo que va a mandar: %s\n",message);
 			
 		send(fd_sock, message, len, 0);
 		free(buffer);
