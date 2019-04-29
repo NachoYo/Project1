@@ -199,7 +199,7 @@ int main(int argc , char *argv[])
 			 {
 				 for(int i=0;i<5;i++){
 				 for(int j=0;j<5;j++){
-					 mess_buff ="";
+					 mess_buff[0] ='+';
 					 sprintf(mess_buff,"%s%d",mess_buff,table[i][j]);
 				 }
 				 }
@@ -208,26 +208,12 @@ int main(int argc , char *argv[])
 				 for(int i=0;i<sizeof(client_socket);i++)
 				 {
 					send(client_socket[i],message2,strlen(message2),0); 
+					 message2=(char *)mess_buff;
 					 //message2="+0123110980290093800710970";
-					send(client_socket[i],&mess_buff,strlen(message2),0); 
+					send(client_socket[i],message2,strlen(message2),0); 
 				  }
-				 printf("Salio del For\nTabla concac:%s\n",mess_buff);
-				 /*
-				 
-				 	for(int i=0;i<5;i++)
-					{
-						for(int j=0;j<5;j++)
-						{
-						sprintf(number,"%d",table[i][j]);
-						strcat(message2,number);
-						}
-					}
-				 
-				 printf("Tabla concatenada: %s\n",message2);
-				 	for(int i=0;i<sizeof(client_socket);i++)
-					{
-					send(client_socket[i] , message2 , strlen(message2) , 0 ); 
-					}*/
+				 printf("Salio del For\nTabla concactenada:%s\n",mess_buff);
+				 cnt++;
 			 }
 			     memset(buffer, 0, sizeof(buffer));
                      }
