@@ -20,6 +20,7 @@ int table[5][5]={{0,1,2,3,1},
  {0,0,0,0,0},
 {0,0,0,0,0}};
 char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
+char *identifier="1";
 char mess_buff[1024];
 
 pthread_t sendthd;
@@ -31,7 +32,7 @@ int max_sd;
 struct sockaddr_in address;
     
 char buffer[1025];  //data buffer of 1K  
-         
+char sendbuffer[1025];
 //set of socket descriptors  
 fd_set readfds;   
          
@@ -259,10 +260,16 @@ static void * sendmsg(void * arg)
 		state2=0;
 		printf("Which machine do you want to send a message?\n");
 		getline(&sendmsg, &getline_len, stdin);
-		
+		strcat(message,identifier);
+		strcat(message,sendmsg);
 		state1=0;
 		state2=1;
 		printf("Type your message:\n");
 		getline(&sendmsg, &getline_len, stdin);
+		strcat(message,sendmsg);
+		for(int i=0;i<sizeof(client_socket);i++)
+			{
+				send(client_socket[i],(char *)message2,strlen(message2),0); 
+			}
 		}
 }
