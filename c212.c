@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 #include <pthread.h>
 
+int state1=0, state2=0;
 char *buffer;
 char r_buffer[1024];
 char message[1024];
@@ -71,6 +72,10 @@ int main()
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
 			printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
 			memset(r_buffer, 0, sizeof(r_buffer));
+			if(state1==1)
+				printf("Which machine do you want to send a message?\n");
+			else if(state2==1)
+				printf("Type your message (for the machine you typed):\n");
 		}
 		else if(r_buffer[0]!='1'&&r_buffer[1]=='2')
 		{
@@ -78,6 +83,11 @@ int main()
 			for(int i=2;i<sizeof(r_buffer);i++){
 			printf("%c",r_buffer[i]);
 			}
+			if(state1==1)
+				printf("Which machine do you want to send a message?\n");
+			else if(state2==1)
+				printf("Type your message (for the machine you typed):\n");
+				
 		}
 		else if(r_buffer[0]=='1'&&r_buffer[1]=='2')
 		{
@@ -85,6 +95,10 @@ int main()
 			for(int i=2;i<sizeof(r_buffer);i++){
 			printf("%c",r_buffer[i]);
 			}
+			if(state1==1)
+				printf("Which machine do you want to send a message?\n");
+			else if(state2==1)
+				printf("Type your message (for the machine you typed):\n");
 		}
 		fflush(NULL);
 		buffer = NULL;
@@ -101,10 +115,14 @@ static void * listenmsg(void * arg)
 		
 		if(begin){
 		//sending
+		state1=1;
+		state2=0;
 		printf("Which machine do you want to send a message?\n");
 		ret = getline(&buffer, &getline_len, stdin);
 		strcat(message,identifier);
 		strcat(message,buffer);
+		state1=0;
+		state2=1;
 		printf("Type your message:\n");
 		ret = getline(&buffer, &getline_len, stdin);
 		strcat(message,buffer);
