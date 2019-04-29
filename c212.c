@@ -73,15 +73,16 @@ int main()
 		else if(r_buffer[0]!='1'&&r_buffer[1]=='2')
 		{
 			printf("(Forwarded from computer no.1)\nComputer no.%c says: ",r_buffer[0]);
-			for(int i=2,i<sizeof(r_buffer);i++){
+			for(int i=2;i<sizeof(r_buffer);i++){
 			printf("%c",r_buffer[i]);
 			}
 		}
 		else if(r_buffer[0]=='1'&&r_buffer[1]=='2')
 		{
 			printf("(Sent directly)\nComputer no.%c says: ",r_buffer[0]);
-			for(int i=2,i<sizeof(r_buffer);i++){
+			for(int i=2;i<sizeof(r_buffer);i++){
 			printf("%c",r_buffer[i]);
+			}
 		}
 		fflush(NULL);
 		buffer = NULL;
