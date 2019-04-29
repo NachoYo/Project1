@@ -100,6 +100,7 @@ int main()
 			else if(state2==1)
 				printf("Type your message (for the machine you typed):\n");
 		}
+		printf("server says: %s\n", r_buffer);
 		fflush(NULL);
 		buffer = NULL;
 		
