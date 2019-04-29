@@ -219,17 +219,26 @@ int main(int argc , char *argv[])
 			     memset(buffer, 0, sizeof(buffer));
                      }
                      else{
-                     printf("Computer no.%c Says: ",buffer[0]);
-		     for(int i=1;i<sizeof(buffer);i++)
-			    {
-				printf("%c",buffer[i]);
-			    }
-			    printf("\n");
+			if(buffer[1]!='1')
+			{
+				for(int i=0;i<sizeof(client_socket);i++)
+				 {
+					send(client_socket[i],buffer,strlen(buffer),0); 
+				  }
+			}
+			 else if(buffer[1]=='1'){
+                     		printf("Computer no.%c Says: ",buffer[0]);
+		     		for(int i=2;i<sizeof(buffer);i++)
+			   	 {
+					printf("%c",buffer[i]);
+			   	 }
+			    	printf("\n");
                     //set the string terminating NULL byte on the end  
                     //of the data read  
-                    buffer[valread] = '\0';
-                    send(sd , buffer , strlen(buffer) , 0 );   
-                    memset(buffer, 0, sizeof(buffer));     
+                   		 buffer[valread] = '\0';
+                   		 //send(sd , buffer , strlen(buffer) , 0 );   
+                   		 memset(buffer, 0, sizeof(buffer));    
+			}
 		    }
                 }   
             }   
