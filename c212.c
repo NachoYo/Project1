@@ -51,6 +51,7 @@ int main()
 		close(fd_sock);
 		return 0;
 	}
+	pthread_create(&listenthd, NULL, listenmsg, (void*)&len);
 	while (1) {
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
@@ -136,7 +137,6 @@ static void * listenmsg(void * arg)
 			printf("server says: %s\n", r_buffer);
 			fflush(NULL);
 			buffer = NULL;
-			pthread_create(&listenthd, NULL, listenmsg, (void*)&len);
 		}
 	}
 }
