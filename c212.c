@@ -27,6 +27,9 @@ struct sockaddr_in addr;
 int len;
 size_t getline_len;
 pthread_t listenthd;
+
+static void * listenmsg(void * arg);
+
 int main()
 {
 	//Socket Creation
