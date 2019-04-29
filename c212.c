@@ -87,7 +87,7 @@ int main()
 		}
 		fflush(NULL);
 		buffer = NULL;
-		}
+		
 	}
 	// bye-bye
 	close(fd_sock);
@@ -137,8 +137,7 @@ static void * listenmsg(void * arg)
 			fflush(NULL);
 			buffer = NULL;
 			pthread_create(&listenthd, NULL, listenmsg, (void*)&len);
-		
-		
+		}
 	}
 }
 
