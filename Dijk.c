@@ -3,11 +3,11 @@
 #define INFINITY 9999
 #define MAX 5
  
-void dijkstra(int G[MAX][MAX],int n,int startnode);
+void dijkstra(int G[5][5],int n,int startnode);
  
 int main()
 {
-	int G[MAX][MAX],i,j,n,u;
+	int G[5][5],i,j,n,u;
 	printf("Enter no. of vertices:");
 	scanf("%d",&n);
 	printf("\nEnter the adjacency matrix:\n");
@@ -23,11 +23,11 @@ int main()
 	return 0;
 }
  
-void dijkstra(int G[MAX][MAX],int n,int startnode)
+void dijkstra(int G[5][5],int n,int startnode)
 {
  
-	int cost[MAX][MAX],distance[MAX],pred[MAX];
-	int visited[MAX],count,mindistance,nextnode,i,j;
+	int cost[5][5],distance[5],pred[5];
+	int visited[5],count,mindistance,nextnode,i,j;
 	
 	//pred[] stores the predecessor of each node
 	//count gives the number of nodes seen so far
