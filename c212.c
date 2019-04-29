@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <pthread.h>
 
 char *buffer;
 char r_buffer[1024];
@@ -98,7 +99,6 @@ static void * listen(void * arg)
 {
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
-		if (len < 0) break;
 		if(r_buffer[0]=='+'){
 			for(int e=0;e<5;e++){
 				for(int j=0;j<5;j++){
