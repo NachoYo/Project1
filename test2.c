@@ -231,7 +231,8 @@ int main(int argc , char *argv[])
                      else{
 			if(buffer[1]!='1')
 			{
-				printf("Mandare esto:%s\n",buffer);
+				printf("Forwarding message from computer :%c to computer %c...\n",buffer[0],buffer[1]);
+				sleep(1);
 				for(int i=0;i<sizeof(client_socket);i++)
 				 {
 					send(client_socket[i],buffer,strlen(buffer),0); 
