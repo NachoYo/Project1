@@ -87,7 +87,7 @@ int main()
 			printf("server says: %s\n", r_buffer);
 			fflush(NULL);
 			buffer = NULL;
-			pthread_create(listenthd, NULL, listen, &len);
+			pthread_create(listenthd, NULL, listenmsg, (void*)&len);
 		}
 	}
 	// bye-bye
@@ -95,7 +95,7 @@ int main()
 	return 0;
 }
 
-static void * listen(void * arg)
+static void * listenmsg(void * arg)
 {
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
