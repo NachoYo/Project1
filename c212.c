@@ -54,7 +54,6 @@ int main()
 	}
 	pthread_create(&listenthd, NULL, listenmsg, (void*)&len);
 	while (1) {
-		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 		if(r_buffer[0]=='+'){
 			for(int e=0;e<5;e++){
@@ -103,7 +102,7 @@ int main()
 		printf("server says: %s\n", r_buffer);
 		fflush(NULL);
 		buffer = NULL;
-		
+		memset(r_buffer, 0, sizeof(r_buffer));
 	}
 	// bye-bye
 	close(fd_sock);
