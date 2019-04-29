@@ -203,7 +203,6 @@ int main(int argc , char *argv[])
 					 sprintf(mess_buff,"%s%d",mess_buff,table[i][j]);
 				 }
 				 }
-				 
 				 printf("Entro al If\n");
 				 sleep(1);
 				 for(int i=0;i<sizeof(client_socket);i++)
@@ -212,7 +211,7 @@ int main(int argc , char *argv[])
 					 //message2="+0123110980290093800710970";
 					send(client_socket[i],&mess_buff,strlen(message2),0); 
 				  }
-				 printf("Salio del For\n");
+				 printf("Salio del For\nTabla concac:%s\n",mess_buff);
 				 /*
 				 
 				 	for(int i=0;i<5;i++)
