@@ -42,7 +42,7 @@ fd_set readfds;
 //a message  
 char *message = "Welcome to the server\r\n";  
 char *message2 = "The cost matrix is:\n";
-char *sendmsg;
+char *sendingmsg;
 
 void dijkstra(int G[5][5],int startnode);
 static void * sentmsg(void * arg);
@@ -262,14 +262,14 @@ static void * sentmsg(void * arg)
 		state1=1;
 		state2=0;
 		printf("Which machine do you want to send a message?\n");
-		getline(&sendmsg, &getline_len, stdin);
+		getline(&sendingmsg, &getline_len, stdin);
 		strcat(message,identifier);
-		strcat(message,sendmsg);
+		strcat(message,sendingmsg);
 		state1=0;
 		state2=1;
 		printf("Type your message:\n");
-		getline(&sendmsg, &getline_len, stdin);
-		strcat(message,sendmsg);
+		getline(&sendingmsg, &getline_len, stdin);
+		strcat(message,sendingmsg);
 		for(int i=0;i<sizeof(client_socket);i++)
 			{
 				send(client_socket[i],(char *)message2,strlen(message2),0); 
