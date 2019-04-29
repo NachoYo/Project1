@@ -73,8 +73,13 @@ int main()
 		}
 		fflush(NULL);
 		buffer = NULL;
-		printf("send$ ");
+		printf("Which machine do you want to send a message?\n");
 		ret = getline(&buffer, &getline_len, stdin);
+		strcat(message,identifier);
+		strcat(message,buffer);
+		printf("Type your message:\n");
+		ret = getline(&buffer, &getline_len, stdin);
+		strcat(message,buffer);
 		if (ret == -1) { // EOF
 			perror("getline");
 			close(fd_sock);
@@ -85,12 +90,8 @@ int main()
 			free(buffer);
 			continue;
 		}
-		
-		strcat(message,identifier);
-		strcat(message,buffer);
 		buffer=(char *)message;
-			
-		printf("Lo que va a mandar: %s\n",message);
+		printf("Lo que va a mandar: %s\n",buffer);
 		send(fd_sock, buffer, len, 0);
 		memset(message, 0, sizeof(message));
 		}
