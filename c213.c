@@ -190,7 +190,7 @@ void dijkstra(int G[5][5],int n,int startnode)
 	for(i=0;i<n;i++)
 		if(i!=startnode)
 		{
-			//printf("\nDistance of node%d=%d",i,distance[i]);
+			printf("Routing Table - Computer %d (%s)",startnode+1,addrs[startnode]);
 			//printf("\nPath=%d",i);
 			
 			j=i;
@@ -200,7 +200,7 @@ void dijkstra(int G[5][5],int n,int startnode)
 				j=pred[j];
 				//printf("<-%d",j);
 			}while(j!=startnode);
-			printf("\nDestination Computer: %d (%s) No. of hops: %d Total distnce: %d\n",i+1,addrs[i], cnt-1, distance[i]);
+			printf("Destination Computer: %d (%s) No. of hops: %d Total distnce: %d\n",i+1,addrs[i], cnt-1, distance[i]);
 			cnt=1;
 	}
 }
