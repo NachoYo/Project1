@@ -7,7 +7,8 @@
 #include <sys/types.h>  
 #include <sys/socket.h>  
 #include <netinet/in.h>  
-#include <sys/time.h> //FD_SET, FD_ISSET, FD_ZERO macros  
+#include <sys/time.h> //FD_SET, FD_ISSET, FD_ZERO macros 
+#define INFINITY 9999
      
 #define TRUE   1  
 #define FALSE  0  
@@ -20,7 +21,7 @@ int table[5][5]={{0,1,2,3,1},
 char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
 char mess_buff[1024];
 
-void dijkstra(int G[5][5],int n,int startnode);
+void dijkstra(int G[5][5],int startnode);
 
 int main(int argc , char *argv[])   
 {   
@@ -187,6 +188,7 @@ int main(int argc , char *argv[])
 		               {
 				table[atoi(&buffer[1])][i]=atoi(&buffer[(i+2)*2]);
 				  printf("%d\n",atoi(&buffer[i+2]));
+				 
 		               }
 			 printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
 			 printf("TABLE[2] %d %d %d %d %d \n",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
@@ -208,12 +210,13 @@ int main(int argc , char *argv[])
 				 {
 					send(client_socket[i],message2,strlen(message2),0); 
 					 message2=(char *)mess_buff;
+					 //message2="+0123110980290093800710970";
 					send(client_socket[i],message2,strlen(message2),0); 
 				  }
 				 printf("Salio del For\nTabla concactenada:%s\n",mess_buff);
 				 cnt++;
 			 }
-			     strcpy(message2, "");
+			     memset(buffer, 0, sizeof(buffer));
                      }
                      else{
                      printf("Computer no.%c Says: ",buffer[0]);
