@@ -56,11 +56,9 @@ int main()
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 		if (len < 0) break;
-		printf("Computer 1 says $ %s\n", r_buffer);
-		if(r_buffer[0]='+'){
+		if(r_buffer[0]=='+'){
 			for(int e=0;e<5;e++){
 				for(int j=0;j<5;j++){
-					
 				sprintf(auxiliar,"%c",r_buffer[e*5+j+1]);
 				table[e][j]=atoi(auxiliar);
 				printf("Elemento q guarda:%c\n elemento guardado:%d\n",r_buffer[e*5+j+1],table[e][j]);
@@ -73,13 +71,31 @@ int main()
 			 printf("TABLE[3] %d %d %d %d %d \n",table[2][0],table[2][1],table[2][2],table[2][3],table[2][4]);
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
 			printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
+			memset(r_buffer, 0, sizeof(r_buffer));
 		}
-		
-		dijkstra(int table[5][5],2);
+		else if(r_buffer[0]!='1'&&r_buffer[1]=='2')
+		{
+			printf("(Forwarded from computer no.1)\nComputer no.%c says: ",r_buffer[0]);
+			for(int i=2;i<sizeof(r_buffer);i++){
+			printf("%c",r_buffer[i]);
+			}
+		}
+		else if(r_buffer[0]=='1'&&r_buffer[1]=='2')
+		{
+			printf("(Sent directly)\nComputer no.%c says: ",r_buffer[0]);
+			for(int i=2;i<sizeof(r_buffer);i++){
+			printf("%c",r_buffer[i]);
+			}
+		}
 		fflush(NULL);
 		buffer = NULL;
-		printf("send$ ");
+		printf("Which machine do you want to send a message?\n");
 		ret = getline(&buffer, &getline_len, stdin);
+		strcat(message,identifier);
+		strcat(message,buffer);
+		printf("Type your message:\n");
+		ret = getline(&buffer, &getline_len, stdin);
+		strcat(message,buffer);
 		if (ret == -1) { // EOF
 			perror("getline");
 			close(fd_sock);
@@ -90,14 +106,11 @@ int main()
 			free(buffer);
 			continue;
 		}
-		
-		strcat(message,identifier);
-		strcat(message,buffer);
 		buffer=(char *)message;
-			
-		printf("Lo que va a mandar: %s\n",message);
+		printf("Lo que va a mandar: %s\n",buffer);
 		send(fd_sock, buffer, len, 0);
 		memset(message, 0, sizeof(message));
+		buffer=NULL;
 		}
 		else{
 			sleep(1);
@@ -109,7 +122,7 @@ int main()
 			memset(r_buffer, 0, sizeof(r_buffer));
 			len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 			if (len < 0) break;
-			printf("Computer 1 says: %s\n", r_buffer);
+			printf("server says: %s\n", r_buffer);
 			fflush(NULL);
 			buffer = NULL;
 		}
@@ -118,7 +131,6 @@ int main()
 	close(fd_sock);
 	return 0;
 }
-
 void dijkstra(int G[5][5],int startnode)
 {
  
