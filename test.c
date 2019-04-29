@@ -7,7 +7,8 @@
 #include <sys/types.h>  
 #include <sys/socket.h>  
 #include <netinet/in.h>  
-#include <sys/time.h> //FD_SET, FD_ISSET, FD_ZERO macros  
+#include <sys/time.h> //FD_SET, FD_ISSET, FD_ZERO macros 
+#define INFINITY 9999
      
 #define TRUE   1  
 #define FALSE  0  
