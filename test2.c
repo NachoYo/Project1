@@ -187,7 +187,6 @@ int main(int argc , char *argv[])
 		               {
 				table[atoi(&buffer[1])][i]=atoi(&buffer[(i+2)*2]);
 				  printf("%d\n",atoi(&buffer[i+2]));
-				 
 		               }
 			 printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
 			 printf("TABLE[2] %d %d %d %d %d \n",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
@@ -212,6 +211,7 @@ int main(int argc , char *argv[])
 					send(client_socket[i],&mess_buff,strlen(message2),0); 
 				  }
 				 printf("Salio del For\nTabla concac:%s\n",mess_buff);
+				 cnt++;
 				 /*
 				 
 				 	for(int i=0;i<5;i++)
