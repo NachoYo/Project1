@@ -17,6 +17,8 @@ int table[5][5]={{0,0,0,0,0},
  {1,0,9,8,0},
  {0,0,0,0,0},
 {0,0,0,0,0}};
+#define INFINITY 9999
+void dijkstra(int G[5][5],int startnode);
 
 int main()
 {
@@ -110,4 +112,72 @@ int main()
 	// bye-bye
 	close(fd_sock);
 	return 0;
+}
+
+void dijkstra(int G[5][5],int startnode)
+{
+ 
+	int cost[5][5],distance[5],pred[5];
+	int visited[5],count,mindistance,nextnode,i,j;
+	
+	//pred[] stores the predecessor of each node
+	//count gives the number of nodes seen so far
+	//create the cost matrix
+	for(i=0;i<5;i++)
+		for(j=0;j<5;j++)
+			if(G[i][j]==0)
+				cost[i][j]=INFINITY;
+			else
+				cost[i][j]=G[i][j];
+	
+	//initialize pred[],distance[] and visited[]
+	for(i=0;i<5;i++)
+	{
+		distance[i]=cost[startnode][i];
+		pred[i]=startnode;
+		visited[i]=0;
+	}
+	
+	distance[startnode]=0;
+	visited[startnode]=1;
+	count=1;
+	
+	while(count<n-1)
+	{
+		mindistance=INFINITY;
+		
+		//nextnode gives the node at minimum distance
+		for(i=0;i<5;i++)
+			if(distance[i]<mindistance&&!visited[i])
+			{
+				mindistance=distance[i];
+				nextnode=i;
+			}
+			
+			//check if a better path exists through nextnode			
+			visited[nextnode]=1;
+			for(i=0;i<5;i++)
+				if(!visited[i])
+					if(mindistance+cost[nextnode][i]<distance[i])
+					{
+						distance[i]=mindistance+cost[nextnode][i];
+						pred[i]=nextnode;
+					}
+		count++;
+	}
+ 
+	//print the path and distance of each node
+	for(i=0;i<5;i++)
+		if(i!=startnode)
+		{
+			printf("\nDistance of node%d=%d",i,distance[i]);
+			printf("\nPath=%d",i);
+			
+			j=i;
+			do
+			{
+				j=pred[j];
+				printf("<-%d",j);
+			}while(j!=startnode);
+	}
 }
