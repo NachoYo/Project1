@@ -266,7 +266,7 @@ void dijkstra(int G[5][5],int startnode)
 	visited[startnode]=1;
 	count=1;
 	
-	while(count<n-1)
+	while(count<5-1)
 	{
 		mindistance=INFINITY;
 		
