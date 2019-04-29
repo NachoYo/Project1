@@ -61,16 +61,16 @@ int main()
 				for(int j=0;j<5;j++){
 				sprintf(auxiliar,"%c",r_buffer[e*5+j+1]);
 				table[e][j]=atoi(auxiliar);
-				printf("Elemento q guarda:%c\n elemento guardado:%d\n",r_buffer[e*5+j+1],table[e][j]);
+				//printf("Elemento q guarda:%c\n elemento guardado:%d\n",r_buffer[e*5+j+1],table[e][j]);
 					memset(auxiliar, 0, sizeof(auxiliar));
 				}
-				printf("Cambio de linea %d\n",e);
+				//printf("Cambio de linea %d\n",e);
 			}
-			printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
+			/*printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
 			 printf("TABLE[2] %d %d %d %d %d \n",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
 			 printf("TABLE[3] %d %d %d %d %d \n",table[2][0],table[2][1],table[2][2],table[2][3],table[2][4]);
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
-			printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
+			printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);*/
 			memset(r_buffer, 0, sizeof(r_buffer));
 			dijkstra(table,5,2);
 		}
