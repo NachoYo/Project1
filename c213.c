@@ -6,6 +6,8 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#define INFINITY 9999
+
 
 char *buffer;
 char r_buffer[1024];
@@ -18,7 +20,7 @@ int table[5][5]={{0,0,0,0,0},
  {0,0,0,0,0},
 {0,0,0,0,0}};
 
-#define INFINITY 9999
+
 void dijkstra(int G[5][5],int startnode);
 
 int main()
@@ -143,7 +145,7 @@ void dijkstra(int G[5][5],int startnode)
 	visited[startnode]=1;
 	count=1;
 	
-	while(count<n-1)
+	while(count<5-1)
 	{
 		mindistance=INFINITY;
 		
