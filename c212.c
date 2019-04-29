@@ -100,6 +100,7 @@ int main()
 
 static void * listenmsg(void * arg)
 {
+	while(1){
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 		if(r_buffer[0]=='+'){
@@ -135,6 +136,7 @@ static void * listenmsg(void * arg)
 		}
 		fflush(NULL);
 		buffer = NULL;
+	}
 }
 
 /*
