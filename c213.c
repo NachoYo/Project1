@@ -190,14 +190,14 @@ void dijkstra(int G[5][5],int startnode)
 		//char aux[]="";
 		if(i!=startnode)
 		{
-			//printf("\nDistance of node%d=%d",i,distance[i]);
-			//printf("\nPath=%d",i);
+			printf("\nDistance of node%d=%d",i,distance[i]);
+			printf("\nPath=%d",i);
 			
 			j=i;
 			do
 			{
 				j=pred[j];
-				//printf("<-%d",j);
+				printf("<-%d",j);
 				
 				//sprintf(aux,"%s%d",aux,j);
 				cnt++;
