@@ -6,30 +6,33 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <pthread.h>
 
+int state1=0, state2=0;
 char *buffer;
 char r_buffer[1024];
 char message[1024];
-char auxiliar[1024];
 char *costs="# 4 1 0 9 7 0";
 char *identifier="5";
+char auxiliar[1024];
 int table[5][5]={{0,0,0,0,0},
  {1,0,9,8,0},
  {0,0,0,0,0},
 {0,0,0,0,0}};
-
 #define INFINITY 9999
 void dijkstra(int G[5][5],int startnode);
+int begin=0;
+int fd_sock, cli_sock;
+int port_num=8888, ret;
+struct sockaddr_in addr;
+int len;
+size_t getline_len;
+pthread_t listenthd;
+
+static void * listenmsg(void * arg);
 
 int main()
 {
-	int begin=0;
-	int fd_sock, cli_sock;
-	int port_num=8888, ret;
-	struct sockaddr_in addr;
-	int len;
-	size_t getline_len;
-	
 	//Socket Creation
 	fd_sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (fd_sock == -1) {
@@ -49,16 +52,13 @@ int main()
 		close(fd_sock);
 		return 0;
 	}
+	pthread_create(&listenthd, NULL, listenmsg, (void*)&len);
 	while (1) {
-		if(begin){
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
-		if (len < 0) break;
-		printf("server says $ %s\n", r_buffer);
-		if(r_buffer[0]='+'){
+		if(r_buffer[0]=='+'){
 			for(int e=0;e<5;e++){
 				for(int j=0;j<5;j++){
-					
 				sprintf(auxiliar,"%c",r_buffer[e*5+j+1]);
 				table[e][j]=atoi(auxiliar);
 				printf("Elemento q guarda:%c\n elemento guardado:%d\n",r_buffer[e*5+j+1],table[e][j]);
@@ -71,11 +71,61 @@ int main()
 			 printf("TABLE[3] %d %d %d %d %d \n",table[2][0],table[2][1],table[2][2],table[2][3],table[2][4]);
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
 			printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
+			memset(r_buffer, 0, sizeof(r_buffer));
+			if(state1==1)
+				printf("Which machine do you want to send a message?\n");
+			else if(state2==1)
+				printf("Type your message (for the machine you typed):\n");
+		}
+		else if(r_buffer[0]!='1'&&r_buffer[1]=='2')
+		{
+			printf("(Forwarded from computer no.1)\nComputer no.%c says: ",r_buffer[0]);
+			for(int i=2;i<sizeof(r_buffer);i++){
+			printf("%c",r_buffer[i]);
+			}
+			if(state1==1)
+				printf("Which machine do you want to send a message?\n");
+			else if(state2==1)
+				printf("Type your message (for the machine you typed):\n");
+				
+		}
+		else if(r_buffer[0]=='1'&&r_buffer[1]=='2')
+		{
+			printf("(Sent directly)\nComputer no.%c says: ",r_buffer[0]);
+			for(int i=2;i<sizeof(r_buffer);i++){
+			printf("%c",r_buffer[i]);
+			}
+			if(state1==1)
+				printf("Which machine do you want to send a message?\n");
+			else if(state2==1)
+				printf("Type your message (for the machine you typed):\n");
 		}
 		fflush(NULL);
 		buffer = NULL;
-		printf("send$ ");
+		
+	}
+	// bye-bye
+	close(fd_sock);
+	return 0;
+}
+
+static void * listenmsg(void * arg)
+{
+	while(1){
+		
+		if(begin){
+		//sending
+		state1=1;
+		state2=0;
+		printf("Which machine do you want to send a message?\n");
 		ret = getline(&buffer, &getline_len, stdin);
+		strcat(message,identifier);
+		strcat(message,buffer);
+		state1=0;
+		state2=1;
+		printf("Type your message:\n");
+		ret = getline(&buffer, &getline_len, stdin);
+		strcat(message,buffer);
 		if (ret == -1) { // EOF
 			perror("getline");
 			close(fd_sock);
@@ -86,14 +136,11 @@ int main()
 			free(buffer);
 			continue;
 		}
-		
-		strcat(message,identifier);
-		strcat(message,buffer);
 		buffer=(char *)message;
-			
-		printf("Lo que va a mandar: %s\n",message);
+		printf("Lo que va a mandar: %s\n",buffer);
 		send(fd_sock, buffer, len, 0);
 		memset(message, 0, sizeof(message));
+		buffer=NULL;
 		}
 		else{
 			sleep(1);
@@ -110,9 +157,6 @@ int main()
 			buffer = NULL;
 		}
 	}
-	// bye-bye
-	close(fd_sock);
-	return 0;
 }
 
 void dijkstra(int G[5][5],int startnode)
