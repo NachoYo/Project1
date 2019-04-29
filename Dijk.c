@@ -28,6 +28,7 @@ void dijkstra(int G[5][5],int n,int startnode)
  
 	int cost[5][5],distance[5],pred[5];
 	int visited[5],count,mindistance,nextnode,i,j;
+	int cnt=1;
 	
 	//pred[] stores the predecessor of each node
 	//count gives the number of nodes seen so far
