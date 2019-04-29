@@ -20,7 +20,7 @@ int table[5][5]={{0,1,2,3,1},
 char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
 char mess_buff[1024];
 
-void dijkstra(int G[5][5],int n,int startnode);
+void dijkstra(int G[5][5],int startnode);
 
 int main(int argc , char *argv[])   
 {   
