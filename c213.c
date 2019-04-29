@@ -8,7 +8,7 @@
 #include <arpa/inet.h>
 #define INFINITY 9999
 
-
+//char route[4];
 char *buffer;
 char r_buffer[1024];
 char message[1024];
@@ -56,7 +56,7 @@ int main()
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 		if (len < 0) break;
-		printf("server says $ %s\n", r_buffer);
+		printf("Computer 1 says $ %s\n", r_buffer);
 		if(r_buffer[0]='+'){
 			for(int e=0;e<5;e++){
 				for(int j=0;j<5;j++){
@@ -74,6 +74,8 @@ int main()
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
 			printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
 		}
+		
+		dijkstra(int table[5][5],2);
 		fflush(NULL);
 		buffer = NULL;
 		printf("send$ ");
@@ -107,7 +109,7 @@ int main()
 			memset(r_buffer, 0, sizeof(r_buffer));
 			len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 			if (len < 0) break;
-			printf("server says: %s\n", r_buffer);
+			printf("Computer 1 says: %s\n", r_buffer);
 			fflush(NULL);
 			buffer = NULL;
 		}
@@ -122,7 +124,7 @@ void dijkstra(int G[5][5],int startnode)
  
 	int cost[5][5],distance[5],pred[5];
 	int visited[5],count,mindistance,nextnode,i,j;
-	
+	int cnt=1;
 	//pred[] stores the predecessor of each node
 	//count gives the number of nodes seen so far
 	//create the cost matrix
@@ -181,6 +183,11 @@ void dijkstra(int G[5][5],int startnode)
 			{
 				j=pred[j];
 				printf("<-%d",j);
+				//sprintf(route[i],"%d ",j);
+				cnt++;
+				
 			}while(j!=startnode);
+			printf("")
+			
 	}
 }
