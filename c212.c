@@ -9,6 +9,7 @@
 #include <pthread.h>
 #define INFINITY 9999
 
+char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
 int state1=0, state2=0;
 char *buffer;
 char r_buffer[1024];
