@@ -211,7 +211,7 @@ int main(int argc , char *argv[])
 					 //message2="+0123110980290093800710970";
 					send(client_socket[i],message2,strlen(message2),0); 
 				  }
-				 printf("Salio del For\nTabla concac:%s\n",mess_buff);
+				 printf("Salio del For\nTabla concactenada:%s\n",mess_buff);
 				 cnt++;
 				 /*
 				 
