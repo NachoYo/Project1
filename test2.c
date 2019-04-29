@@ -10,7 +10,7 @@
 #include <sys/time.h> //FD_SET, FD_ISSET, FD_ZERO macros 
 #include <pthread.h>
 #define INFINITY 9999
-     
+  
 #define TRUE   1  
 #define FALSE  0  
 #define PORT 8888  
@@ -24,6 +24,7 @@ int table[5][5]={{0,1,2,3,1},
 char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
 char *identifier="1";
 char mess_buff[1024];
+size_t getline_len;
 
 pthread_t sendthd;
 char number[20];
