@@ -114,7 +114,7 @@ int main()
 	close(fd_sock);
 	return 0;
 }
-
+/*
 void dijkstra(int G[5][5],int startnode)
 {
  
@@ -182,3 +182,4 @@ void dijkstra(int G[5][5],int startnode)
 			}while(j!=startnode);
 	}
 }
+*/
