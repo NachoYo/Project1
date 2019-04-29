@@ -203,7 +203,7 @@ void dijkstra(int G[5][5],int startnode)
 				cnt++;
 				
 			}while(j!=startnode);
-			printf("Destination Computer: %d No. of hops: %d Total distnce: %d",i, cnt, distance[i]);
+			printf("Destination Computer: %d No. of hops: %d Total distnce: %d",i, cnt-1, distance[i]);
 			
 	}
 }
