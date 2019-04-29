@@ -54,7 +54,7 @@ int main()
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 		if (len < 0) break;
 		printf("server says $ %s\n", r_buffer);
-		if(r_buffer[0]='+'){
+		if(r_buffer[0]=='+'){
 			for(int e=0;e<5;e++){
 				for(int j=0;j<5;j++){
 				sprintf(auxiliar,"%c",r_buffer[e*5+j+1]);
