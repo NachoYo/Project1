@@ -53,7 +53,6 @@ int main()
 		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 		if (len < 0) break;
-		printf("server says $ %s\n", r_buffer);
 		if(r_buffer[0]=='+'){
 			for(int e=0;e<5;e++){
 				for(int j=0;j<5;j++){
@@ -70,6 +69,19 @@ int main()
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
 			printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
 			memset(r_buffer, 0, sizeof(r_buffer));
+		}
+		else if(r_buffer[0]!='1'&&r_buffer[1]=='2')
+		{
+			printf("(Forwarded from computer no.1)\nComputer no.%c says: ",r_buffer[0]);
+			for(int i=2,i<sizeof(r_buffer);i++){
+			printf("%c",r_buffer[i]);
+			}
+		}
+		else if(r_buffer[0]=='1'&&r_buffer[1]=='2')
+		{
+			printf("(Sent directly)\nComputer no.%c says: ",r_buffer[0]);
+			for(int i=2,i<sizeof(r_buffer);i++){
+			printf("%c",r_buffer[i]);
 		}
 		fflush(NULL);
 		buffer = NULL;
