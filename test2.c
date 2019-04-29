@@ -8,6 +8,7 @@
 #include <sys/socket.h>  
 #include <netinet/in.h>  
 #include <sys/time.h> //FD_SET, FD_ISSET, FD_ZERO macros 
+#include <pthread.h>
 #define INFINITY 9999
      
 #define TRUE   1  
@@ -21,26 +22,30 @@ int table[5][5]={{0,1,2,3,1},
 char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
 char mess_buff[1024];
 
+pthread_t sendthd;
+char number[20];
+int opt = TRUE;   
+int master_socket , addrlen , new_socket , client_socket[30] ,  
+max_clients = 30 , activity, i , valread , sd;   
+int max_sd;   
+struct sockaddr_in address;
+    
+char buffer[1025];  //data buffer of 1K  
+         
+//set of socket descriptors  
+fd_set readfds;   
+         
+//a message  
+char *message = "Welcome to the server\r\n";  
+char *message2 = "The cost matrix is:\n";
+char *sendmsg = "The cost matrix is:\n";
+
 void dijkstra(int G[5][5],int startnode);
+static void * sendmsg(void * arg);
 
 int main(int argc , char *argv[])   
 {   
-    char number[20];
-    int opt = TRUE;   
-    int master_socket , addrlen , new_socket , client_socket[30] ,  
-          max_clients = 30 , activity, i , valread , sd;   
-    int max_sd;   
-    struct sockaddr_in address;
-    
-    char buffer[1025];  //data buffer of 1K  
-         
-    //set of socket descriptors  
-    fd_set readfds;   
-         
-    //a message  
-    char *message = "Welcome to the server\r\n";   
-     char *message2 = "The cost matrix is:\n";
-	
+
     //initialise all client_socket[] to 0 so not checked  
     for (i = 0; i < max_clients; i++)   
     {   
@@ -137,7 +142,7 @@ int main(int argc , char *argv[])
             //send new connection greeting message  
             if( send(new_socket, message, strlen(message), 0) != strlen(message) )   
             {   
-                perror("send");   
+                perror("send");
             }   
                  
             puts("Welcome message sent successfully");   
@@ -155,7 +160,7 @@ int main(int argc , char *argv[])
                 }   
             }   
         }   
-             
+             pthread_create(&sendthd, NULL, sendmsg, (void*)&opt);
         //else its some IO operation on some other socket 
         for (i = 0; i < max_clients; i++)   
         {   
@@ -246,3 +251,18 @@ int main(int argc , char *argv[])
     }   
     return 0;   
 } 
+
+static void * sendmsg(void * arg)
+{
+	while(1){
+		state1=1;
+		state2=0;
+		printf("Which machine do you want to send a message?\n");
+		getline(&sendmsg, &getline_len, stdin);
+		
+		state1=0;
+		state2=1;
+		printf("Type your message:\n");
+		getline(&sendmsg, &getline_len, stdin);
+		}
+}
