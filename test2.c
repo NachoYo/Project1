@@ -213,22 +213,6 @@ int main(int argc , char *argv[])
 				  }
 				 printf("Salio del For\nTabla concactenada:%s\n",mess_buff);
 				 cnt++;
-				 /*
-				 
-				 	for(int i=0;i<5;i++)
-					{
-						for(int j=0;j<5;j++)
-						{
-						sprintf(number,"%d",table[i][j]);
-						strcat(message2,number);
-						}
-					}
-				 
-				 printf("Tabla concatenada: %s\n",message2);
-				 	for(int i=0;i<sizeof(client_socket);i++)
-					{
-					send(client_socket[i] , message2 , strlen(message2) , 0 ); 
-					}*/
 			 }
 			     memset(buffer, 0, sizeof(buffer));
                      }
