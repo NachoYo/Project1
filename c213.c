@@ -7,7 +7,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #define INFINITY 9999
-
+char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
 //char route[4];
 char *buffer;
 char r_buffer[1024];
@@ -133,80 +133,6 @@ int main()
 	close(fd_sock);
 	return 0;
 }
-/*void dijkstra(int G[5][5],int startnode)
-{
- 
-	int cost[5][5],distance[5],pred[5];
-	int visited[5],count,mindistance,nextnode,i,j;
-	int cnt=1;
-	//pred[] stores the predecessor of each node
-	//count gives the number of nodes seen so far
-	//create the cost matrix
-	for(i=0;i<5;i++)
-		for(j=0;j<5;j++)
-			if(G[i][j]==0)
-				cost[i][j]=INFINITY;
-			else
-				cost[i][j]=G[i][j];
-	
-	//initialize pred[],distance[] and visited[]
-	for(i=0;i<5;i++)
-	{
-		distance[i]=cost[startnode][i];
-		pred[i]=startnode;
-		visited[i]=0;
-	}
-	
-	distance[startnode]=0;
-	visited[startnode]=1;
-	count=1;
-	
-	while(count<5-1)
-	{
-		mindistance=INFINITY;
-		
-		//nextnode gives the node at minimum distance
-		for(i=0;i<5;i++)
-			if(distance[i]<mindistance&&!visited[i])
-			{
-				mindistance=distance[i];
-				nextnode=i;
-			}
-			
-			//check if a better path exists through nextnode			
-			visited[nextnode]=1;
-			for(i=0;i<5;i++)
-				if(!visited[i])
-					if(mindistance+cost[nextnode][i]<distance[i])
-					{
-						distance[i]=mindistance+cost[nextnode][i];
-						pred[i]=nextnode;
-					}
-		count++;
-	}
- 
-	//print the path and distance of each node
-	for(i=0;i<5;i++)
-		//char aux[]="";
-		if(i!=startnode)
-		{
-			printf("\nDistance of node%d=%d",i,distance[i]);
-			printf("\nPath=%d",i);
-			
-			j=i;
-			do
-			{
-				j=pred[j];
-				printf("<-%d",j);
-				
-				//sprintf(aux,"%s%d",aux,j);
-				cnt++;
-				
-			}while(j!=startnode);
-			printf("Destination Computer: %d No. of hops: %d Total distnce: %d\n",i, cnt-1, distance[i]);
-			
-	}
-}*/
 void dijkstra(int G[5][5],int n,int startnode)
 {
  
@@ -264,17 +190,17 @@ void dijkstra(int G[5][5],int n,int startnode)
 	for(i=0;i<n;i++)
 		if(i!=startnode)
 		{
-			printf("\nDistance of node%d=%d",i,distance[i]);
-			printf("\nPath=%d",i);
+			//printf("\nDistance of node%d=%d",i,distance[i]);
+			//printf("\nPath=%d",i);
 			
 			j=i;
 			do
 			{
 				cnt++;
 				j=pred[j];
-				printf("<-%d",j);
+				//printf("<-%d",j);
 			}while(j!=startnode);
-			printf("\nDestination Computer: %d No. of hops: %d Total distnce: %d\n",i, cnt-1, distance[i]);
+			printf("\nDestination Computer: %d (%s) No. of hops: %d Total distnce: %d\n",i+1,addrs[i], cnt-1, distance[i]);
 			cnt=1;
 	}
 }
