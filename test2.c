@@ -199,7 +199,7 @@ int main(int argc , char *argv[])
 			 {
 				 for(int i=0;i<5;i++){
 				 for(int j=0;j<5;j++){
-					 mess_buff ="";
+					 mess_buff ="+";
 					 sprintf(mess_buff,"%s%d",mess_buff,table[i][j]);
 				 }
 				 }
