@@ -214,7 +214,7 @@ int main(int argc , char *argv[])
 				 cnt++;
 			 }
 			     memset(buffer, 0, sizeof(buffer));
-			     memset(message2, 0, sizeof(message2));
+			     strcpy(message2, "");
                      }
                      else{
                      printf("Computer no.%c Says: ",buffer[0]);
