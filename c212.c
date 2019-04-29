@@ -90,7 +90,7 @@ int main()
 			printf("server says: %s\n", r_buffer);
 			fflush(NULL);
 			buffer = NULL;
-			pthread_create(listenthd, NULL, listenmsg, (void*)&len);
+			pthread_create(&listenthd, NULL, listenmsg, (void*)&len);
 		}
 	}
 	// bye-bye
