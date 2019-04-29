@@ -14,6 +14,8 @@
 #define TRUE   1  
 #define FALSE  0  
 #define PORT 8888  
+
+int state1=0, state2=0;
  int cnt=0;
 int table[5][5]={{0,1,2,3,1},
  {0,0,0,0,0},
@@ -39,10 +41,10 @@ fd_set readfds;
 //a message  
 char *message = "Welcome to the server\r\n";  
 char *message2 = "The cost matrix is:\n";
-char *sendmsg = "The cost matrix is:\n";
+char *sendmsg;
 
 void dijkstra(int G[5][5],int startnode);
-static void * sendmsg(void * arg);
+static void * sentmsg(void * arg);
 
 int main(int argc , char *argv[])   
 {   
@@ -161,7 +163,7 @@ int main(int argc , char *argv[])
                 }   
             }   
         }   
-             pthread_create(&sendthd, NULL, sendmsg, (void*)&opt);
+             pthread_create(&sendthd, NULL, sentmsg, (void*)&opt);
         //else its some IO operation on some other socket 
         for (i = 0; i < max_clients; i++)   
         {   
@@ -253,7 +255,7 @@ int main(int argc , char *argv[])
     return 0;   
 } 
 
-static void * sendmsg(void * arg)
+static void * sentmsg(void * arg)
 {
 	while(1){
 		state1=1;
