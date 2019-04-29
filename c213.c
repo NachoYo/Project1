@@ -72,7 +72,7 @@ int main()
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
 			printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
 			memset(r_buffer, 0, sizeof(r_buffer));
-			dijkstra(table[5][5],5);
+			dijkstra(table,5);
 		}
 		else if(r_buffer[0]!='1'&&r_buffer[1]=='2')
 		{
