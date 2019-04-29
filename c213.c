@@ -275,5 +275,6 @@ void dijkstra(int G[5][5],int n,int startnode)
 				printf("<-%d",j);
 			}while(j!=startnode);
 			printf("\nDestination Computer: %d No. of hops: %d Total distnce: %d\n",i, cnt-1, distance[i]);
+			cnt=1;
 	}
 }
