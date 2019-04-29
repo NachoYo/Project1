@@ -18,6 +18,7 @@ int table[5][5]={{0,1,2,3,1},
  {0,0,0,0,0},
 {0,0,0,0,0}};
 char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
+char mess_buff[1024];
 
 void dijkstra(int G[5][5],int n,int startnode);
 
@@ -193,21 +194,23 @@ int main(int argc , char *argv[])
 			 printf("TABLE[3] %d %d %d %d %d \n",table[2][0],table[2][1],table[2][2],table[2][3],table[2][4]);
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
                          printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
-			     
-			 
-			
-		         
-			     
 			 printf("Computer that sent it: %d \n",buffer[2]);
 			 if(cnt==4)
 			 {
+				 for(int i=0;i<5;i++){
+				 for(int j=0;j<5;j++){
+					 mess_buff ="";
+					 sprintf(mess_buff,"%s%d",mess_buff,table[i][j]);
+				 }
+				 }
+				 
 				 printf("Entro al If\n");
 				 sleep(1);
 				 for(int i=0;i<sizeof(client_socket);i++)
 				 {
 					send(client_socket[i],message2,strlen(message2),0); 
-					 message2="+0123110980290093800710970";
-					send(client_socket[i],message2,strlen(message2),0); 
+					 //message2="+0123110980290093800710970";
+					send(client_socket[i],&mess_buff,strlen(message2),0); 
 				  }
 				 printf("Salio del For\n");
 				 /*
