@@ -21,7 +21,7 @@ int table[5][5]={{0,0,0,0,0},
 {0,0,0,0,0}};
 
 
-void dijkstra(int G[MAX][MAX],int n,int startnode);
+void dijkstra(int G[5][5],int n,int startnode);
 
 int main()
 {
