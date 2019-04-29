@@ -86,10 +86,12 @@ void dijkstra(int G[5][5],int n,int startnode)
 			j=i;
 			do
 			{
+				cnt++;
 				j=pred[j];
 				printf("<-%d",j);
 			}while(j!=startnode);
 			printf("Destination Computer: %d No. of hops: %d Total distnce: %d\n",i+1, cnt-1, distance[i]);
+			cnt=1;
 	}
 }
 
