@@ -185,21 +185,23 @@ void dijkstra(int G[5][5],int startnode)
  
 	//print the path and distance of each node
 	for(i=0;i<5;i++)
+		//char aux[]="";
 		if(i!=startnode)
 		{
-			printf("\nDistance of node%d=%d",i,distance[i]);
-			printf("\nPath=%d",i);
+			//printf("\nDistance of node%d=%d",i,distance[i]);
+			//printf("\nPath=%d",i);
 			
 			j=i;
 			do
 			{
 				j=pred[j];
-				printf("<-%d",j);
-				//sprintf(route[i],"%d ",j);
+				//printf("<-%d",j);
+				
+				//sprintf(aux,"%s%d",aux,j);
 				cnt++;
 				
 			}while(j!=startnode);
-			printf("");
+			printf("Destination Computer: %d No. of hops: %d Total distnce: %d",i, cnt, distance[i]);
 			
 	}
 }
