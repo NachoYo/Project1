@@ -57,7 +57,6 @@ int main()
 		if(r_buffer[0]='+'){
 			for(int e=0;e<5;e++){
 				for(int j=0;j<5;j++){
-					
 				sprintf(auxiliar,"%c",r_buffer[e*5+j+1]);
 				table[e][j]=atoi(auxiliar);
 				printf("Elemento q guarda:%c\n elemento guardado:%d\n",r_buffer[e*5+j+1],table[e][j]);
@@ -70,6 +69,7 @@ int main()
 			 printf("TABLE[3] %d %d %d %d %d \n",table[2][0],table[2][1],table[2][2],table[2][3],table[2][4]);
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
 			printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
+			memset(r_buffer, 0, sizeof(r_buffer));
 		}
 		fflush(NULL);
 		buffer = NULL;
@@ -94,6 +94,7 @@ int main()
 		printf("Lo que va a mandar: %s\n",buffer);
 		send(fd_sock, buffer, len, 0);
 		memset(message, 0, sizeof(message));
+		buffer=NULL;
 		}
 		else{
 			sleep(1);
