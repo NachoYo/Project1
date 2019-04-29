@@ -10,6 +10,7 @@
 char *buffer;
 char message[1024];
 char r_buffer[1024];
+char auxiliar[1024];
 char *costs="# 3 3 8 0 0 7";
 char *identifier="4";
 int table[5][5]={{0,0,0,0,0},
