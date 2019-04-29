@@ -213,7 +213,6 @@ int main(int argc , char *argv[])
 				 printf("Salio del For\nTabla concactenada:%s\n",mess_buff);
 				 cnt++;
 			 }
-			     memset(buffer, 0, sizeof(buffer));
 			     strcpy(message2, "");
                      }
                      else{
