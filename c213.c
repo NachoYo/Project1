@@ -199,7 +199,7 @@ void dijkstra(int G[5][5],int startnode)
 				cnt++;
 				
 			}while(j!=startnode);
-			printf("")
+			printf("");
 			
 	}
 }
