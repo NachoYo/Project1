@@ -143,7 +143,6 @@ static void * listenmsg(void * arg)
 		buffer=NULL;
 		}
 		else{
-			sleep(1);
 			len = strlen(costs);
 			send(fd_sock, costs, len, 0);
 			begin=1;	
