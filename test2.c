@@ -164,7 +164,8 @@ int main(int argc , char *argv[])
                 }   
             }   
         }   
-             pthread_create(&sendthd, NULL, sentmsg, (void*)&opt);
+             //pthread_create(&sendthd, NULL, sentmsg, (void*)&opt);
+	    
         //else its some IO operation on some other socket 
         for (i = 0; i < max_clients; i++)   
         {   
@@ -230,6 +231,7 @@ int main(int argc , char *argv[])
                      else{
 			if(buffer[1]!='1')
 			{
+				printf("Mandare esto:%s\n",buffer);
 				for(int i=0;i<sizeof(client_socket);i++)
 				 {
 					send(client_socket[i],buffer,strlen(buffer),0); 
