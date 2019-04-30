@@ -3,10 +3,15 @@
 This project simulates the routing process in a computer network with a known topology and known link costs between nodes. It uses Dijkstra’s algorithm to find the optimal, cheapest path from one node to another, generating a routing table, and be able to send packages (messages) from one computer to another target computer, using the data from the routing table, simulating a private chatting program. 
 
 This project is conformed by 5 different c files:
+
 s211.c -------- To be run on the server computer 1 (IP Address: 220.149.244.211)
+
 c212.c -------- To be run on the client computer 2 (IP Address: 220.149.244.212)
+
 c213.c -------- To be run on the client computer 3 (IP Address: 220.149.244.213)
+
 c214.c -------- To be run on the client computer 4 (IP Address: 220.149.244.214)
+
 c215.c -------- To be run on the client computer 5 (IP Address: 220.149.244.215)
 
 If you want to access the 5 computers remotely by PuTTY, please follow the next steps:
