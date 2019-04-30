@@ -23,7 +23,6 @@ int state1=0, state2=0;
 char *buffer;
 char r_buffer[1024];
 char message[1024];
-#define INFINITY 9999
 int begin=0;
 int fd_sock, cli_sock;
 int port_num=8888, ret;
@@ -80,8 +79,9 @@ int main()
 			else if(state2==1)
 				printf("Type your message (for the machine you typed):\n");
 		}
-		else if(r_buffer[0]!='4'&&r_buffer[0]!='1'&&r_buffer[1]=='5')
+		else if(r_buffer[0]!='4'&&r_buffer[0]!='1'&&r_buffer[1]=='4')
 		{
+			printf("RECIEVED A MESSAGE:\n");
 			printf("(Forwarded from computer no.1)\nComputer no.%c says: ",r_buffer[0]);
 			for(int i=2;i<sizeof(r_buffer);i++){
 			printf("%c",r_buffer[i]);
@@ -93,8 +93,9 @@ int main()
 				printf("Type your message (for the machine you typed):\n");
 				
 		}
-		else if(r_buffer[0]=='1'&&r_buffer[1]=='5')
+		else if(r_buffer[0]=='1'&&r_buffer[1]=='4')
 		{
+			printf("RECIEVED A MESSAGE:\n");
 			printf("(Sent directly)\nComputer no.%c says: ",r_buffer[0]);
 			for(int i=2;i<sizeof(r_buffer);i++){
 			printf("%c",r_buffer[i]);
@@ -173,10 +174,13 @@ static void * listenmsg(void * arg)
 				printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
 				memset(r_buffer, 0, sizeof(r_buffer));
 				dijkstra(table,5,1);
-				if(state1==1)
-				printf("Which machine do you want to send a message?\n");
+				printf("\n-----------------------\n\n");
+				if(state1==1){
+					printf("Now you can send messages to any computer! (1 to 5)\n");
+					printf("Which machine do you want to send a message?\n");
+				}
 				else if(state2==1)
-				printf("Type your message (for the machine you typed):\n");
+					printf("Type your message (for the machine you typed):\n");
 			}
 			fflush(NULL);
 			buffer = NULL;
