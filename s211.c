@@ -205,11 +205,13 @@ int main(int argc , char *argv[])
 			 printf("TABLE[3] %d %d %d %d %d \n",table[2][0],table[2][1],table[2][2],table[2][3],table[2][4]);
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
                          printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
-			 printf("Computer that sent it: %d \n",buffer[2]);
+			 printf("\n-----------------------\n\n");
 			 if(cnt==4)
 			 {
-				 dijkstra(table,5,0);
+				 
 				 printf("The cost table is complete!\n");
+				 printf("\n-----------------------\n\n");
+				 dijkstra(table,5,0);
 				 for(int i=0;i<5;i++){
 				 	for(int j=0;j<5;j++){
 						 mess_buff[0] ='+';
@@ -333,7 +335,7 @@ void dijkstra(int G[5][5],int n,int startnode)
 					}
 		count++;
 	}
- 	printf("Routing Table - Computer %d (%s)",startnode+1,addrs[startnode]);
+ 	printf("Routing Table - Computer %d (%s)\n",startnode+1,addrs[startnode]);
 	//print the path and distance of each node
 	for(i=0;i<n;i++)
 		if(i!=startnode)
