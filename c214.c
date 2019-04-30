@@ -187,6 +187,7 @@ static void * listenmsg(void * arg)
 		}
 	}
 }
+
 void dijkstra(int G[5][5],int n,int startnode)
 {
  
