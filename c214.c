@@ -173,7 +173,7 @@ static void * listenmsg(void * arg)
 			 	printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
 				printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
 				memset(r_buffer, 0, sizeof(r_buffer));
-				dijkstra(table,5,1);
+				dijkstra(table,5,3);
 				printf("\n-----------------------\n\n");
 				if(state1==1){
 					printf("Now you can send messages to any computer! (1 to 5)\n");
