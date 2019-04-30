@@ -128,7 +128,7 @@ static void * listenmsg(void * arg)
 		state2=1;
 		printf("Type your message:\n");
 		ret = getline(&buffer, &getline_len, stdin);
-		strcat(message,buffer);
+		sprintf(auxiliar,"%s%s",auxiliar,buffer);
 		if (ret == -1) { // EOF
 			perror("getline");
 			close(fd_sock);
@@ -139,7 +139,7 @@ static void * listenmsg(void * arg)
 			free(buffer);
 			continue;
 		}
-		buffer=(char *)message;
+		buffer=(char *)auxiliar;
 		printf("Lo que va a mandar: %s\n",buffer);
 		send(fd_sock, buffer, len, 0);
 		memset(message, 0, sizeof(message));
