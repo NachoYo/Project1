@@ -74,7 +74,7 @@ int main()
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
 			printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
 			memset(r_buffer, 0, sizeof(r_buffer));
-			dijkstra(table,5,1);
+			dijkstra(table,5,2);
 			if(state1==1)
 				printf("Which machine do you want to send a message?\n");
 			else if(state2==1)
