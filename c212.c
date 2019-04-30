@@ -106,6 +106,7 @@ int main()
 		fflush(NULL);
 		buffer = NULL;
 		memset(r_buffer, 0, sizeof(r_buffer));
+		memset(auxiliar, 0, sizeof(auxiliar));
 	}
 	// bye-bye
 	close(fd_sock);
@@ -122,8 +123,7 @@ static void * listenmsg(void * arg)
 		state2=0;
 		printf("Which machine do you want to send a message?\n");
 		ret = getline(&buffer, &getline_len, stdin);
-		strcat(message,identifier);
-		strcat(message,buffer);
+		sprintf(auxiliar,"%c%c",identifier[0],buffer[0]);
 		state1=0;
 		state2=1;
 		printf("Type your message:\n");
@@ -143,6 +143,7 @@ static void * listenmsg(void * arg)
 		printf("Lo que va a mandar: %s\n",buffer);
 		send(fd_sock, buffer, len, 0);
 		memset(message, 0, sizeof(message));
+		memset(auxiliar, 0, sizeof(auxiliar));
 		buffer=NULL;
 		}
 		else{
