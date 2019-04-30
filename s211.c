@@ -173,7 +173,6 @@ int main(int argc , char *argv[])
         for (i = 0; i < max_clients; i++)   
         {   
             sd = client_socket[i];   
-                 
             if (FD_ISSET( sd , &readfds))   
             {   
                 //Check if it was for closing , and also read the  
@@ -192,18 +191,16 @@ int main(int argc , char *argv[])
                 }   
                      
                 //Echo back the message that came in  
-                else 
-                {  
+                else{  
 			printf("Recieved Message: %s\n",buffer);
-                     if(buffer[0]=='#')
-                     {
-                          cnt++;
-			     for(int i=0;i<5;i++)
-		               {
-				table[atoi(&buffer[1])][i]=atoi(&buffer[(i+2)*2]);
-				  printf("%d\n",atoi(&buffer[i+2]));
-				 
-		               }
+                     	if(buffer[0]=='#')
+                     	{
+                          	cnt++;
+			     	for(int i=0;i<5;i++)
+		               	{
+					table[atoi(&buffer[1])][i]=atoi(&buffer[(i+2)*2]);
+					printf("%d\n",atoi(&buffer[i+2]));
+				}
 			 printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
 			 printf("TABLE[2] %d %d %d %d %d \n",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
 			 printf("TABLE[3] %d %d %d %d %d \n",table[2][0],table[2][1],table[2][2],table[2][3],table[2][4]);
@@ -215,10 +212,10 @@ int main(int argc , char *argv[])
 				 dijkstra(table,5,0);
 				 printf("The cost table is complete!\n");
 				 for(int i=0;i<5;i++){
-				 for(int j=0;j<5;j++){
-					 mess_buff[0] ='+';
-					 sprintf(mess_buff,"%s%d",mess_buff,table[i][j]);
-				 }
+				 	for(int j=0;j<5;j++){
+						 mess_buff[0] ='+';
+					 	sprintf(mess_buff,"%s%d",mess_buff,table[i][j]);
+				 		}
 				 }
 				 sleep(1);
 				 for(int i=0;i<sizeof(client_socket);i++)
@@ -234,33 +231,35 @@ int main(int argc , char *argv[])
 			     memset(buffer, 0, sizeof(buffer));
                      }
                      else{
-			if(buffer[1]=='2'||buffer[1]=='3'||buffer[1]=='4'||buffer[1]=='5')
-			{
-				printf("RECIEVED A MESSAGE\n");
-				printf("Forwarding message from computer:%c to computer %c...\n",buffer[0],buffer[1]);
-				for(int i=0;i<sizeof(client_socket);i++)
-				 {
-					send(client_socket[i],(char *)buffer,strlen(buffer),0); 
-				  }
-				printf("Forwarded message sent");
-			}
-			 else if(buffer[1]=='1'){
-				printf("RECIEVED A MESSAGE\n");
-                     		printf("Computer no.%c Says: ",buffer[0]);
-		     		for(int i=2;i<sizeof(buffer);i++)
-			   	 {
-					printf("%c",buffer[i]);
-			   	 }
+				if(buffer[1]=='2'||buffer[1]=='3'||buffer[1]=='4'||buffer[1]=='5')
+				{
+					printf("RECIEVED A MESSAGE\n");
+					printf("Forwarding message from computer:%c to computer %c...\n",buffer[0],buffer[1]);
+					for(int i=0;i<sizeof(client_socket);i++)
+					{
+						send(client_socket[i],(char *)buffer,strlen(buffer),0); 
+				  	}
+					printf("Forwarded message sent");
+				}
+			 	else if(buffer[1]=='1'){
+					printf("RECIEVED A MESSAGE\n");
+                     			printf("Computer no.%c Says: ",buffer[0]);
+		     			for(int i=2;i<sizeof(buffer);i++)
+			   		{
+						printf("%c",buffer[i]);
+			   	 	}
 			    	printf("\n");
-                    //set the string terminating NULL byte on the end  
-                    //of the data read  
-                   		 buffer[valread] = '\0';
-                   		 //send(sd , buffer , strlen(buffer) , 0 );   
-                   		 memset(buffer, 0, sizeof(buffer));    
-			}
+                    		//set the string terminating NULL byte on the end  
+                    		//of the data read  
+                   		buffer[valread] = '\0';  
+				}
+			     memset(buffer, 0, sizeof(buffer));
 		    }
+			memset(buffer, 0, sizeof(buffer));
                 }   
-            }   
+		memset(buffer, 0, sizeof(buffer));
+            } 
+		memset(buffer, 0, sizeof(buffer));
         }   
     }   
     return 0;   
