@@ -21,8 +21,6 @@ int table[5][5]={{0,0,0,0,0},
  {1,0,9,8,0},
  {0,0,0,0,0},
 {0,0,0,0,0}};
-
-void dijkstra(int G[5][5],int n,int startnode);
 int begin=0;
 int fd_sock, cli_sock;
 int port_num=8888, ret;
