@@ -144,7 +144,6 @@ static void * listenmsg(void * arg)
 			continue;
 		}
 		buffer=(char *)auxiliar;
-		printf("Lo que va a mandar: %s\n",buffer);
 		send(fd_sock, buffer, len, 0);
 		memset(message, 0, sizeof(message));
 		memset(auxiliar, 0, sizeof(auxiliar));
