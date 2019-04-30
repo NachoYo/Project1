@@ -131,7 +131,7 @@ static void * listenmsg(void * arg)
 		state2=1;
 		printf("Type your message:\n");
 		ret = getline(&buffer, &getline_len, stdin);
-		sprintf(auxiliar,"%s%s",auxiliar,buffer);
+		sprintf(auxiliar,"%s%s+",auxiliar,buffer);
 		if (ret == -1) { // EOF
 			perror("getline");
 			close(fd_sock);
