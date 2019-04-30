@@ -243,7 +243,7 @@ void dijkstra(int G[5][5],int n,int startnode)
 					}
 		count++;
 	}
- 	printf("Routing Table - Computer %d (%s)",startnode+1,addrs[startnode]);
+ 	printf("Routing Table - Computer %d (%s)\n",startnode+1,addrs[startnode]);
 	//print the path and distance of each node
 	for(i=0;i<n;i++)
 		if(i!=startnode)
