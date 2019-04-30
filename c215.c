@@ -79,7 +79,7 @@ int main()
 			else if(state2==1)
 				printf("Type your message (for the machine you typed):\n");
 		}
-		else if(r_buffer[0]!='4'&&r_buffer[0]!='1'&&r_buffer[1]=='4')
+		else if(r_buffer[0]!='5'&&r_buffer[0]!='1'&&r_buffer[1]=='5')
 		{
 			printf("RECIEVED A MESSAGE:\n");
 			printf("(Forwarded from computer no.1)\nComputer no.%c says: ",r_buffer[0]);
@@ -93,7 +93,7 @@ int main()
 				printf("Type your message (for the machine you typed):\n");
 				
 		}
-		else if(r_buffer[0]=='1'&&r_buffer[1]=='4')
+		else if(r_buffer[0]=='1'&&r_buffer[1]=='5')
 		{
 			printf("RECIEVED A MESSAGE:\n");
 			printf("(Sent directly)\nComputer no.%c says: ",r_buffer[0]);
@@ -187,6 +187,7 @@ static void * listenmsg(void * arg)
 		}
 	}
 }
+
 void dijkstra(int G[5][5],int n,int startnode)
 {
  
@@ -258,4 +259,3 @@ void dijkstra(int G[5][5],int n,int startnode)
 			cnt=1;
 	}
 }
-
