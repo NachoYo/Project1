@@ -9,18 +9,20 @@
 #include <pthread.h>
 #define INFINITY 9999
 
+char *costs="# 4 1 0 9 7 0";
+char *identifier="5";
+char auxiliar[1024];
+int table[5][5]={{0,0,0,0,0},
+{0,0,0,0,0},
+{0,0,0,0,0},
+{0,0,0,0,0},
+{1,0,9,7,0}};
+
 char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
 int state1=0, state2=0;
 char *buffer;
 char r_buffer[1024];
 char message[1024];
-char *costs="# 4 1 0 9 7 0";
-char *identifier="5";
-char auxiliar[1024];
-int table[5][5]={{0,0,0,0,0},
- {1,0,9,8,0},
- {0,0,0,0,0},
-{0,0,0,0,0}};
 #define INFINITY 9999
 int begin=0;
 int fd_sock, cli_sock;
@@ -163,7 +165,7 @@ static void * listenmsg(void * arg)
 					memset(auxiliar, 0, sizeof(auxiliar));
 					}
 				}
-				printf("Printing cost table...\n");
+				printf("The cost table is complete!\nPrinting cost table...\n");
 				printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
 			 	printf("TABLE[2] %d %d %d %d %d \n",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
 			 	printf("TABLE[3] %d %d %d %d %d \n",table[2][0],table[2][1],table[2][2],table[2][3],table[2][4]);
