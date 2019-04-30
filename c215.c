@@ -32,6 +32,7 @@ size_t getline_len;
 pthread_t listenthd;
 
 static void * listenmsg(void * arg);
+void dijkstra(int G[5][5],int n,int startnode);
 
 int main()
 {
@@ -56,36 +57,35 @@ int main()
 	}
 	pthread_create(&listenthd, NULL, listenmsg, (void*)&len);
 	while (1) {
-		memset(r_buffer, 0, sizeof(r_buffer));
 		len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 		if(r_buffer[0]=='+'){
 			for(int e=0;e<5;e++){
 				for(int j=0;j<5;j++){
 				sprintf(auxiliar,"%c",r_buffer[e*5+j+1]);
 				table[e][j]=atoi(auxiliar);
-				printf("Elemento q guarda:%c\n elemento guardado:%d\n",r_buffer[e*5+j+1],table[e][j]);
-					memset(auxiliar, 0, sizeof(auxiliar));
+				memset(auxiliar, 0, sizeof(auxiliar));
 				}
-				printf("Cambio de linea %d\n",e);
 			}
-			/*printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
+			printf("Printing cost table...\n");
+			printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
 			 printf("TABLE[2] %d %d %d %d %d \n",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
 			 printf("TABLE[3] %d %d %d %d %d \n",table[2][0],table[2][1],table[2][2],table[2][3],table[2][4]);
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
-			printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);*/
+			printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
 			memset(r_buffer, 0, sizeof(r_buffer));
-			dijkstra(table,5,4);
+			dijkstra(table,5,1);
 			if(state1==1)
 				printf("Which machine do you want to send a message?\n");
 			else if(state2==1)
 				printf("Type your message (for the machine you typed):\n");
 		}
-		else if(r_buffer[0]!='1'&&r_buffer[1]=='2')
+		else if(r_buffer[0]!='4'&&r_buffer[0]!='1'&&r_buffer[1]=='2')
 		{
 			printf("(Forwarded from computer no.1)\nComputer no.%c says: ",r_buffer[0]);
 			for(int i=2;i<sizeof(r_buffer);i++){
 			printf("%c",r_buffer[i]);
 			}
+			printf("\n\n");
 			if(state1==1)
 				printf("Which machine do you want to send a message?\n");
 			else if(state2==1)
@@ -98,6 +98,7 @@ int main()
 			for(int i=2;i<sizeof(r_buffer);i++){
 			printf("%c",r_buffer[i]);
 			}
+			printf("\n\n");
 			if(state1==1)
 				printf("Which machine do you want to send a message?\n");
 			else if(state2==1)
@@ -105,7 +106,8 @@ int main()
 		}
 		fflush(NULL);
 		buffer = NULL;
-		
+		memset(r_buffer, 0, sizeof(r_buffer));
+		memset(auxiliar, 0, sizeof(auxiliar));
 	}
 	// bye-bye
 	close(fd_sock);
@@ -122,13 +124,12 @@ static void * listenmsg(void * arg)
 		state2=0;
 		printf("Which machine do you want to send a message?\n");
 		ret = getline(&buffer, &getline_len, stdin);
-		strcat(message,identifier);
-		strcat(message,buffer);
+		sprintf(auxiliar,"%c%c",identifier[0],buffer[0]);
 		state1=0;
 		state2=1;
 		printf("Type your message:\n");
 		ret = getline(&buffer, &getline_len, stdin);
-		strcat(message,buffer);
+		sprintf(auxiliar,"%s%s",auxiliar,buffer);
 		if (ret == -1) { // EOF
 			perror("getline");
 			close(fd_sock);
@@ -139,14 +140,14 @@ static void * listenmsg(void * arg)
 			free(buffer);
 			continue;
 		}
-		buffer=(char *)message;
+		buffer=(char *)auxiliar;
 		printf("Lo que va a mandar: %s\n",buffer);
 		send(fd_sock, buffer, len, 0);
 		memset(message, 0, sizeof(message));
+		memset(auxiliar, 0, sizeof(auxiliar));
 		buffer=NULL;
 		}
 		else{
-			sleep(1);
 			len = strlen(costs);
 			send(fd_sock, costs, len, 0);
 			begin=1;	
@@ -155,7 +156,27 @@ static void * listenmsg(void * arg)
 			memset(r_buffer, 0, sizeof(r_buffer));
 			len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 			if (len < 0) break;
-			printf("server says: %s\n", r_buffer);
+			if(r_buffer[0]=='+'){
+				for(int e=0;e<5;e++){
+					for(int j=0;j<5;j++){
+					sprintf(auxiliar,"%c",r_buffer[e*5+j+1]);
+					table[e][j]=atoi(auxiliar);
+					memset(auxiliar, 0, sizeof(auxiliar));
+					}
+				}
+				printf("Printing cost table...\n");
+				printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
+			 	printf("TABLE[2] %d %d %d %d %d \n",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
+			 	printf("TABLE[3] %d %d %d %d %d \n",table[2][0],table[2][1],table[2][2],table[2][3],table[2][4]);
+			 	printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
+				printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
+				memset(r_buffer, 0, sizeof(r_buffer));
+				dijkstra(table,5,1);
+				if(state1==1)
+				printf("Which machine do you want to send a message?\n");
+				else if(state2==1)
+				printf("Type your message (for the machine you typed):\n");
+			}
 			fflush(NULL);
 			buffer = NULL;
 		}
