@@ -237,6 +237,7 @@ int main(int argc , char *argv[])
 					printf("Forwarding message from computer:%c to computer %c...\n",buffer[0],buffer[1]);
 					for(int i=0;i<sizeof(client_socket);i++)
 					{
+						printf("Mandado al socket %d",i);
 						send(client_socket[i],(char *)buffer,strlen(buffer),0); 
 				  	}
 					printf("Forwarded message sent");
