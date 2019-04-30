@@ -6,19 +6,30 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <pthread.h>
 #define INFINITY 9999
+
+char *costs="# 2 2 9 0 0 9";
+char *identifier="3";
+int table[5][5]={{0,0,0,0,0},
+{0,0,0,0,0},
+{2,9,0,0,9},
+{0,0,0,0,0},
+{0,0,0,0,0}};
+
 char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.149.244.214","220.149.244.215"};
-//char route[4];
+int state1=0, state2=0;
 char *buffer;
 char r_buffer[1024];
 char message[1024];
 char auxiliar[1024];
-char *costs="# 2 2 9 0 0 9";
-char *identifier="3";
-int table[5][5]={{0,0,0,0,0},
- {1,0,9,8,0},
- {0,0,0,0,0},
-{0,0,0,0,0}};
+int begin=0;
+int fd_sock, cli_sock;
+int port_num=8888, ret;
+struct sockaddr_in addr;
+int len;
+size_t getline_len;
+pthread_t listenthd;
 
 static void * listenmsg(void * arg);
 void dijkstra(int G[5][5],int n,int startnode);
@@ -70,6 +81,7 @@ int main()
 		}
 		else if(r_buffer[0]!='1'&&r_buffer[1]=='2')
 		{
+			printf("RECIEVED A MESSAGE:\n");
 			printf("(Forwarded from computer no.1)\nComputer no.%c says: ",r_buffer[0]);
 			for(int i=2;i<sizeof(r_buffer);i++){
 			printf("%c",r_buffer[i]);
@@ -83,6 +95,7 @@ int main()
 		}
 		else if(r_buffer[0]!='3'&&r_buffer[0]=='1'&&r_buffer[1]=='2')
 		{
+			printf("RECIEVED A MESSAGE:\n");
 			printf("(Sent directly)\nComputer no.%c says: ",r_buffer[0]);
 			for(int i=2;i<sizeof(r_buffer);i++){
 			printf("%c",r_buffer[i]);
@@ -153,7 +166,7 @@ static void * listenmsg(void * arg)
 					memset(auxiliar, 0, sizeof(auxiliar));
 					}
 				}
-				printf("Printing cost table...\n");
+				printf("The cost table is complete!\nPrinting cost table...\n");
 				printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
 			 	printf("TABLE[2] %d %d %d %d %d \n",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
 			 	printf("TABLE[3] %d %d %d %d %d \n",table[2][0],table[2][1],table[2][2],table[2][3],table[2][4]);
@@ -161,8 +174,11 @@ static void * listenmsg(void * arg)
 				printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
 				memset(r_buffer, 0, sizeof(r_buffer));
 				dijkstra(table,5,1);
-				if(state1==1)
-				printf("Which machine do you want to send a message?\n");
+				printf("\n-----------------------\n\n");
+				if(state1==1){
+					printf("Now you can send messages to any computer! (1 to 5)\n");
+					printf("Which machine do you want to send a message?\n");
+				}
 				else if(state2==1)
 				printf("Type your message (for the machine you typed):\n");
 			}
