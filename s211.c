@@ -210,9 +210,9 @@ int main(int argc , char *argv[])
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
                          printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
 			 printf("Computer that sent it: %d \n",buffer[2]);
-			 dijkstra(table,5,0);
 			 if(cnt==4)
 			 {
+				 dijkstra(table,5,0);
 				 printf("The cost table is complete!\n");
 				 for(int i=0;i<5;i++){
 				 for(int j=0;j<5;j++){
@@ -234,7 +234,7 @@ int main(int argc , char *argv[])
 			     memset(buffer, 0, sizeof(buffer));
                      }
                      else{
-			if(buffer[1]=='2'&&buffer[1]=='3'&&buffer[1]=='4'&&buffer[1]=='5'&&buffer[0]!=buffer[1])
+			if(buffer[1]=='2'||buffer[1]=='3'||buffer[1]=='4'||buffer[1]=='5')
 			{
 				printf("RECIEVED A MESSAGE\n");
 				printf("Forwarding message from computer:%c to computer %c...\n",buffer[0],buffer[1]);
