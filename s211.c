@@ -47,7 +47,7 @@ char *message = "Welcome to the server\r\n";
 char *message2 = "The cost matrix is:\n";
 char *sendingmsg;
 
-void dijkstra(int G[5][5],int startnode);
+void dijkstra(int G[5][5],int n,int startnode);
 static void * sentmsg(void * arg);
 
 int main(int argc , char *argv[])   
@@ -194,6 +194,7 @@ int main(int argc , char *argv[])
                 //Echo back the message that came in  
                 else 
                 {  
+			printf("Recieved Message: %s\n",buffer);
                      if(buffer[0]=='#')
                      {
                           cnt++;
@@ -212,13 +213,13 @@ int main(int argc , char *argv[])
 			 dijkstra(table,5,0);
 			 if(cnt==4)
 			 {
+				 printf("The cost table is complete!\n");
 				 for(int i=0;i<5;i++){
 				 for(int j=0;j<5;j++){
 					 mess_buff[0] ='+';
 					 sprintf(mess_buff,"%s%d",mess_buff,table[i][j]);
 				 }
 				 }
-				 printf("Entro al If\n");
 				 sleep(1);
 				 for(int i=0;i<sizeof(client_socket);i++)
 				 {
@@ -227,22 +228,24 @@ int main(int argc , char *argv[])
 					 //message2="+0123110980290093800710970";
 					send(client_socket[i],message2,strlen(message2),0); 
 				  }
-				 printf("Salio del For\nTabla concactenada:%s\n",mess_buff);
+				 dijkstra(table,5,1);
 				 cnt++;
 			 }
 			     memset(buffer, 0, sizeof(buffer));
                      }
                      else{
-			if(buffer[1]!='1')
+			if(buffer[1]=='2'&&buffer[1]=='3'&&buffer[1]=='4'&&buffer[1]=='5'&&buffer[0]!=buffer[1])
 			{
+				printf("RECIEVED A MESSAGE\n");
 				printf("Forwarding message from computer:%c to computer %c...\n",buffer[0],buffer[1]);
-				sleep(1);
 				for(int i=0;i<sizeof(client_socket);i++)
 				 {
 					send(client_socket[i],(char *)buffer,strlen(buffer),0); 
 				  }
+				printf("Forwarded message sent");
 			}
 			 else if(buffer[1]=='1'){
+				printf("RECIEVED A MESSAGE\n");
                      		printf("Computer no.%c Says: ",buffer[0]);
 		     		for(int i=2;i<sizeof(buffer);i++)
 			   	 {
@@ -281,7 +284,7 @@ static void * sentmsg(void * arg)
 			{
 				send(client_socket[i],(char *)message2,strlen(message2),0); 
 			}
-		}
+	}
 }
 void dijkstra(int G[5][5],int n,int startnode)
 {
