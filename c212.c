@@ -22,7 +22,7 @@ int table[5][5]={{0,0,0,0,0},
  {0,0,0,0,0},
 {0,0,0,0,0}};
 #define INFINITY 9999
-oid dijkstra(int G[5][5],int n,int startnode);
+void dijkstra(int G[5][5],int n,int startnode);
 int begin=0;
 int fd_sock, cli_sock;
 int port_num=8888, ret;
