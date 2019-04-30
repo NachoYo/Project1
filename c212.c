@@ -78,7 +78,7 @@ int main()
 			else if(state2==1)
 				printf("Type your message (for the machine you typed):\n");
 		}
-		else if(r_buffer[0]!='1'&&r_buffer[1]=='2')
+		else if(r_buffer[0]!='2'&&r_buffer[0]!='1'&&r_buffer[1]=='2')
 		{
 			printf("(Forwarded from computer no.1)\nComputer no.%c says: ",r_buffer[0]);
 			for(int i=2;i<sizeof(r_buffer);i++){
@@ -103,7 +103,6 @@ int main()
 			else if(state2==1)
 				printf("Type your message (for the machine you typed):\n");
 		}
-		printf("SERV SAID: %s\n", r_buffer);
 		fflush(NULL);
 		buffer = NULL;
 		memset(r_buffer, 0, sizeof(r_buffer));
