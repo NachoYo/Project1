@@ -62,10 +62,8 @@ int main()
 				for(int j=0;j<5;j++){
 				sprintf(auxiliar,"%c",r_buffer[e*5+j+1]);
 				table[e][j]=atoi(auxiliar);
-				//printf("Elemento q guarda:%c\n elemento guardado:%d\n",r_buffer[e*5+j+1],table[e][j]);
-					memset(auxiliar, 0, sizeof(auxiliar));
+				memset(auxiliar, 0, sizeof(auxiliar));
 				}
-				//printf("Cambio de linea %d\n",e);
 			}
 			/*printf("TABLE[1] %d %d %d %d %d \n",table[0][0],table[0][1],table[0][2],table[0][3],table[0][4]);
 			 printf("TABLE[2] %d %d %d %d %d \n",table[1][0],table[1][1],table[1][2],table[1][3],table[1][4]);
@@ -73,6 +71,7 @@ int main()
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
 			printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);*/
 			memset(r_buffer, 0, sizeof(r_buffer));
+			printf("Printing table...\n");
 			dijkstra(table,5,1);
 			if(state1==1)
 				printf("Which machine do you want to send a message?\n");
@@ -102,7 +101,7 @@ int main()
 			else if(state2==1)
 				printf("Type your message (for the machine you typed):\n");
 		}
-		printf("server says: %s\n", r_buffer);
+		printf("SERV SAID: %s\n", r_buffer);
 		fflush(NULL);
 		buffer = NULL;
 		memset(r_buffer, 0, sizeof(r_buffer));
@@ -155,12 +154,13 @@ static void * listenmsg(void * arg)
 			memset(r_buffer, 0, sizeof(r_buffer));
 			len = recv(fd_sock, r_buffer, sizeof(r_buffer), 0);
 			if (len < 0) break;
-			printf("server says: %s\n", r_buffer);
+			printf("NO SE si aca salga algo: %s\n", r_buffer);
 			fflush(NULL);
 			buffer = NULL;
 		}
 	}
 }
+
 void dijkstra(int G[5][5],int n,int startnode)
 {
  
