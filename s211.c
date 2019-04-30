@@ -226,7 +226,6 @@ int main(int argc , char *argv[])
 					 //message2="+0123110980290093800710970";
 					send(client_socket[i],message2,strlen(message2),0); 
 				  }
-				 dijkstra(table,5,1);
 				 cnt++;
 			 }
 			     memset(buffer, 0, sizeof(buffer));
