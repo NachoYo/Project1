@@ -253,13 +253,10 @@ int main(int argc , char *argv[])
                     		//of the data read  
                    		buffer[valread] = '\0';  
 				}
-			     memset(buffer, 0, sizeof(buffer));
-		    }
+		    	}
 			memset(buffer, 0, sizeof(buffer));
                 }   
-		memset(buffer, 0, sizeof(buffer));
             } 
-		memset(buffer, 0, sizeof(buffer));
         }   
     }   
     return 0;   
