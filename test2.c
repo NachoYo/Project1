@@ -25,6 +25,9 @@ char *addrs[] = {"220.149.244.211", "220.149.244.212", "220.149.244.213","220.14
 char *identifier="1";
 char mess_buff[1024];
 size_t getline_len;
+#define INFINITY 9999
+void dijkstra(int G[5][5],int n,int startnode);
+
 
 pthread_t sendthd;
 char number[20];
@@ -206,6 +209,7 @@ int main(int argc , char *argv[])
 			 printf("TABLE[4] %d %d %d %d %d \n",table[3][0],table[3][1],table[3][2],table[3][3],table[3][4]);
                          printf("TABLE[5] %d %d %d %d %d \n",table[4][0],table[4][1],table[4][2],table[4][3],table[4][4]);
 			 printf("Computer that sent it: %d \n",buffer[2]);
+			 dijkstra(table,5,0);
 			 if(cnt==4)
 			 {
 				 for(int i=0;i<5;i++){
@@ -278,4 +282,75 @@ static void * sentmsg(void * arg)
 				send(client_socket[i],(char *)message2,strlen(message2),0); 
 			}
 		}
+}
+void dijkstra(int G[5][5],int n,int startnode)
+{
+ 
+	int cost[5][5],distance[5],pred[5];
+	int visited[5],count,mindistance,nextnode,i,j;
+	int cnt=1;
+	
+	//pred[] stores the predecessor of each node
+	//count gives the number of nodes seen so far
+	//create the cost matrix
+	for(i=0;i<n;i++)
+		for(j=0;j<n;j++)
+			if(G[i][j]==0)
+				cost[i][j]=INFINITY;
+			else
+				cost[i][j]=G[i][j];
+	
+	//initialize pred[],distance[] and visited[]
+	for(i=0;i<n;i++)
+	{
+		distance[i]=cost[startnode][i];
+		pred[i]=startnode;
+		visited[i]=0;
+	}
+	
+	distance[startnode]=0;
+	visited[startnode]=1;
+	count=1;
+	
+	while(count<n-1)
+	{
+		mindistance=INFINITY;
+		
+		//nextnode gives the node at minimum distance
+		for(i=0;i<n;i++)
+			if(distance[i]<mindistance&&!visited[i])
+			{
+				mindistance=distance[i];
+				nextnode=i;
+			}
+			
+			//check if a better path exists through nextnode			
+			visited[nextnode]=1;
+			for(i=0;i<n;i++)
+				if(!visited[i])
+					if(mindistance+cost[nextnode][i]<distance[i])
+					{
+						distance[i]=mindistance+cost[nextnode][i];
+						pred[i]=nextnode;
+					}
+		count++;
+	}
+ 
+	//print the path and distance of each node
+	for(i=0;i<n;i++)
+		if(i!=startnode)
+		{
+			printf("Routing Table - Computer %d (%s)",startnode+1,addrs[startnode]);
+			//printf("\nPath=%d",i);
+			
+			j=i;
+			do
+			{
+				cnt++;
+				j=pred[j];
+				//printf("<-%d",j);
+			}while(j!=startnode);
+			printf("Destination Computer: %d (%s) No. of hops: %d Total distnce: %d\n",i+1,addrs[i], cnt-1, distance[i]);
+			cnt=1;
+	}
 }
